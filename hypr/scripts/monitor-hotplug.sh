@@ -19,7 +19,8 @@ fi
 if [ -n "$name" ]; then
     mirror=$(hyprctl monitors -j | jq -r --arg n "$name" '.[] | select(.name == $n) | .mirrorOf')
     if [ -n "$mirror" ] && [ "$mirror" != "none" ]; then
-        hyprctl keyword monitor "$name,highrr,auto-right,1"
+        # the Lua config rejects "hyprctl keyword", so set the rule through eval
+        hyprctl eval "hl.monitor({ output = \"$name\", mode = \"highrr\", position = \"auto-right\", scale = 1 })"
     fi
 fi
 

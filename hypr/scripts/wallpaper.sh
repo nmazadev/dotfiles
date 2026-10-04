@@ -65,10 +65,10 @@ awww img "$wallpaper" \
 
 # create blurred wallpaper (for wlogout), cropped to fill the screen.
 # The original image is never modified.
+# Runs in the background so SUPER+W returns right away.
 if [ ! "$blur" == "0x0" ] ; then
     magick "$wallpaper" -resize '1920x1080^' -gravity center -extent 1920x1080 \
-        -blur "$blur" "$blurred_wp"
-    echo ":: Blurred"
+        -blur "$blur" "$blurred_wp" &
 fi
 
 # update current wallpaper file

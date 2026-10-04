@@ -34,7 +34,7 @@
 	
 	// clock
 	"clock": {  
-		"interval": 1,
+		"interval": 60,
 		"format": "󰥔  {:%A, %B %d - %H:%M}",
 		"format-alt": "󰥔  {:%H:%M}", // click to toggle the short version
 		"tooltip-format": "<big>{calendar}</big>",
@@ -102,8 +102,9 @@
 		"on-click": "kitty btop"
 	},
 	
-	// now playing: previous / play-pause / next around the track title.
-	// The buttons print nothing while Spotify is not running, which hides them.
+	// now playing: track title, then previous / play-pause / next.
+	// The buttons follow playerctl events (no polling) and print nothing while
+	// Spotify is not running, which hides them.
 	"group/media": {
 		"orientation": "inherit",
 		"modules": [
@@ -115,22 +116,19 @@
 	},
 
 	"custom/media-prev": {
-		"exec": "playerctl -p spotify status >/dev/null 2>&1 && echo 󰒮",
-		"interval": 2,
+		"exec": "playerctl -p spotify --follow status 2>/dev/null | while read -r s; do case $s in Playing|Paused|Stopped) echo 󰒮;; *) echo;; esac; done",
 		"on-click": "playerctl -p spotify previous",
 		"tooltip": false
 	},
 
 	"custom/media-toggle": {
-		"exec": "case $(playerctl -p spotify status 2>/dev/null) in Playing) echo 󰏤;; Paused|Stopped) echo 󰐊;; esac",
-		"interval": 1,
+		"exec": "playerctl -p spotify --follow status 2>/dev/null | while read -r s; do case $s in Playing) echo 󰏤;; Paused|Stopped) echo 󰐊;; *) echo;; esac; done",
 		"on-click": "playerctl -p spotify play-pause",
 		"tooltip": false
 	},
 
 	"custom/media-next": {
-		"exec": "playerctl -p spotify status >/dev/null 2>&1 && echo 󰒭",
-		"interval": 2,
+		"exec": "playerctl -p spotify --follow status 2>/dev/null | while read -r s; do case $s in Playing|Paused|Stopped) echo 󰒭;; *) echo;; esac; done",
 		"on-click": "playerctl -p spotify next",
 		"tooltip": false
 	},

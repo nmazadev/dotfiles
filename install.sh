@@ -4,10 +4,8 @@
 set -euo pipefail
 
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-dry=0
-[[ "${1:-}" == "--dry-run" ]] && dry=1
-
-run() { if ((dry)); then echo "+ $*"; else "$@"; fi; }
+source "$repo/lib.sh"
+parse_args "$@"
 
 link() { # link <source> <target>
     local src="$1" dst="$2"
@@ -33,6 +31,10 @@ done
 for f in gtk-3.0/settings.ini gtk-4.0/settings.ini; do
     link "$repo/$f" "$HOME/.config/$f"
 done
+
+# zsh, and faster AUR builds (MAKEFLAGS for makepkg/paru)
+link "$repo/zsh/zshrc" "$HOME/.zshrc"
+link "$repo/pacman/makepkg.conf" "$HOME/.config/pacman/makepkg.conf"
 
 # vim: the vimrc and the colorscheme that uses the terminal palette
 link "$repo/vim/vimrc" "$HOME/.vimrc"

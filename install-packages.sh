@@ -9,7 +9,7 @@ require_paru
 
 install() { run paru -S --needed "$@"; }
 
-install base-devel git xdg-utils xdg-user-dirs
+install base-devel git xdg-utils xdg-user-dirs zsh pacman-contrib
 
 # Desktop
 install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi
@@ -19,10 +19,13 @@ install grim slurp wl-clipboard satty brightnessctl playerctl python-pywal image
     btop bluetui wiremix blueman cava pavucontrol glow fastfetch zoxide
 
 # Fonts, icons and cursor
-install ttf-jetbrains-mono ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji adwaita-icon-theme rose-pine-hyprcursor
+install ttf-jetbrains-mono ttf-jetbrains-mono-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji adwaita-icon-theme rose-pine-hyprcursor
 
 # Audio, bluetooth, network
 install pipewire pipewire-pulse pipewire-alsa wireplumber bluez bluez-utils networkmanager
+
+# Laptop power profiles, compressed swap in RAM, keyring for the shell's ssh agent
+install power-profiles-daemon zram-generator gnome-keyring
 
 # Portals (screen sharing, file dialogs) and the polkit agent (auth dialogs)
 install xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpolkitagent qt6-wayland

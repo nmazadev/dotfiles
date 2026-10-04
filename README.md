@@ -39,8 +39,8 @@ cd ~/dev/dotfiles
 | Script | Does |
 | --- | --- |
 | `install-packages.sh` | every package the setup needs, plus Intel and NVIDIA drivers when those GPUs are detected |
-| `install-services.sh` | enables NetworkManager, bluetooth, pipewire and the polkit agent, creates `~/wallpapers` |
-| `install.sh` | links `hypr`, `waybar`, `kitty`, `wofi`, `wlogout` and `mako` into `~/.config`, the pywal templates into `~/.config/wal/templates` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
+| `install-services.sh` | enables NetworkManager, bluetooth, pipewire, power profiles, SSD trim and package-cache cleanup; sets up zram swap; makes zsh the login shell with oh-my-zsh and its plugins; creates `~/wallpapers` |
+| `install.sh` | links `~/.zshrc`, the per-user `makepkg.conf`, `hypr`, `waybar`, `kitty`, `wofi`, `wlogout` and `mako` into `~/.config`, the pywal templates into `~/.config/wal/templates` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
 | `install-extras.sh` | optional apps (`tlock`, `xleak-bin`, `tabiew`, `zed`, `spotify`, `onlyoffice-bin`) and the lidm login manager with its theme |
 
 Everything is safe to run again. When it finishes, drop at least one image in `~/wallpapers` and log in to Hyprland. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
@@ -53,6 +53,8 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 | `waybar/` | the top bar, `launch.sh` restarts it |
 | `kitty/` | terminal, JetBrains Mono 12 pt |
 | `wofi/` | the `SUPER + A` app launcher: config and a theme-aware style |
+| `zsh/` | `zshrc`: oh-my-zsh (robbyrussell, autosuggestions, fast-syntax-highlighting), zoxide as `cd`, pywal colors, git aliases, `EDITOR=vim` |
+| `pacman/` | per-user `makepkg.conf`: AUR packages build on every CPU thread |
 | `vim/` | `vimrc` and the `cozy` colorscheme, which follows the terminal palette so vim matches the theme |
 | `fastfetch/` | fastfetch config (OS, host, CPU, both GPUs, RAM, disk, every monitor with refresh rate, battery, uptime, now playing) and logos |
 | `wlogout/` | logout menu: layout, icons, style |
@@ -70,11 +72,11 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 - `monitors.lua` laptop panel (eDP-1 1920x1080@240), plus a catch-all rule: any other monitor gets its best resolution at the highest refresh rate, placed to the right
 - `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24) and `vim` as the default `EDITOR`/`VISUAL`
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
-- `autostart.lua` starts `awww-daemon`, `mako`, `hypridle` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
+- `autostart.lua` starts `awww-daemon`, `mako`, `hypridle`, `media-inhibit.sh` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
 - `looks.lua` dwindle layout, 3/6 px gaps, 12 px rounded corners, 0.95 opacity, a 2 px accent outline on the focused window (faint on the rest), blur off, animations
 - `input.lua` `us` + `latam` layouts, 3-finger swipe to change workspace
 - `binds.lua` keybindings, see [Keybindings](#-keybindings)
-- `hypridle.conf` / `hyprlock.conf` lock after 5 min, screen off after 6 min
+- `hypridle.conf` / `hyprlock.conf` dim at 4.5 min, lock at 5 min, screens off at 6 min, and lock before suspend. Nothing happens while media plays: `scripts/media-inhibit.sh` holds an idle inhibitor whenever an app plays audio (music, video) or records the mic (Discord, meetings)
 - `scripts/theme.sh` switches the color theme (see Themes below)
 - `scripts/wallpaper.sh` picks a wallpaper, recolors with pywal, restarts waybar and reloads mako. It only reads your images and writes a blurred copy for wlogout
 - `scripts/startup.sh` runs at login: restores the wallpaper and theme colors, then starts waybar
@@ -111,7 +113,8 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 - **TUIs (waybar clicks open them in kitty):** `wiremix` (audio), `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
 - **Look:** JetBrains Mono (+ Nerd Font), Noto fonts, `adwaita-icon-theme`, `rose-pine-hyprcursor`
-- **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`
+- **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`, `power-profiles-daemon`, `zram-generator`, `pacman-contrib` (paccache), `gnome-keyring`
+- **Shell:** `zsh` with oh-my-zsh, `zsh-autosuggestions` and `fast-syntax-highlighting` (cloned by `install-services.sh`)
 - **GPU (detected):** `mesa` `vulkan-intel` `intel-media-driver`, and `nvidia-open` `nvidia-utils` `egl-wayland` `libva-nvidia-driver`
 - **Extras (`install-extras.sh`):** `tlock` (2FA tokens TUI), `xleak-bin` (Excel viewer TUI), `tabiew` (CSV viewer TUI), `zed`, `spotify` (shown in waybar through its mpris module), `onlyoffice-bin`, and the login manager `lidm` + `lidm-systemd` from the AUR
 
@@ -229,6 +232,9 @@ sudo systemctl disable lidm && sudo systemctl enable getty@tty1
 
 **Screenshots**
 - [satty](https://github.com/Satty-org/Satty), [grim](https://sr.ht/~emersion/grim/) and [slurp](https://github.com/emersion/slurp)
+
+**Shell**
+- [oh-my-zsh](https://ohmyz.sh/), [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) and [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting)
 
 **Terminal tools**
 - [wiremix](https://github.com/tsowell/wiremix) (audio), [bluetui](https://github.com/pythops/bluetui) (bluetooth), `nmtui` from [NetworkManager](https://networkmanager.dev/) (network)

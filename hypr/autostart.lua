@@ -6,6 +6,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(home .. "/.config/hypr/scripts/startup.sh")
     hl.exec_cmd("mako")
     hl.exec_cmd("hypridle")
+    -- keeps hypridle from dimming/locking while music, video or a call is playing
+    hl.exec_cmd(home .. "/.config/hypr/scripts/media-inhibit.sh")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
