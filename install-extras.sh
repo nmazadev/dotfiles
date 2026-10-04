@@ -3,8 +3,12 @@
 # Usage: ./install-extras.sh [--dry-run]
 set -euo pipefail
 
+# lidm needs a service provider; EndeavourOS uses systemd. It is installed
+# first so paru never asks which provider of lidm-service to use.
+service_provider=lidm-systemd
+
 # Add more extras here
-packages=(lidm lidm-systemd)
+packages=(lidm)
 
 dry=0
 [[ "${1:-}" == "--dry-run" ]] && dry=1
@@ -16,10 +20,11 @@ if ! command -v paru >/dev/null; then
     exit 1
 fi
 
+run paru -S --needed "$service_provider"
 run paru -S --needed "${packages[@]}"
 
 # Unit name comes from the package; fall back to the usual one
-unit=$(pacman -Ql lidm-systemd 2>/dev/null | awk '/\.service$/ { n = split($2, a, "/"); print a[n]; exit }' || true)
+unit=$(pacman -Ql "$service_provider" 2>/dev/null | awk '/\.service$/ { n = split($2, a, "/"); print a[n]; exit }' || true)
 unit=${unit:-lidm.service}
 
 # lidm replaces the getty on tty1. Takes effect on the next boot, so the
