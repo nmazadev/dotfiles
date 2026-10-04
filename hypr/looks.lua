@@ -1,8 +1,17 @@
+-- Theme colors written by pywal (wal/templates/colors-hypr.lua), refreshed by theme.sh
+local ok, colors = pcall(dofile, (os.getenv("HOME") or "") .. "/.cache/wal/colors-hypr.lua")
+if not ok then colors = { accent = "c4785a", muted = "a08c7d" } end
+
 hl.config({
     general = {
         gaps_in = 3,
         gaps_out = 6,
-        border_size = 0,
+        -- Slim accent outline on the focused window, barely-there on the rest
+        border_size = 2,
+        col = {
+            active_border = "rgba(" .. colors.accent .. "e6)",
+            inactive_border = "rgba(" .. colors.muted .. "33)",
+        },
         layout = "dwindle",
         allow_tearing = false,
     },

@@ -9,12 +9,12 @@
 
 /* pywal colors, see hypr/scripts/theme.sh. cursor is the theme's accent */
 @import '../../.cache/wal/colors-waybar.css';
-@define-color ws @color3;
+@define-color ws @cursor;
 @define-color tt alpha(mix(@background, @foreground, 0.15), 0.95);
 @define-color clock @cursor;
 @define-color set alpha(mix(@background, @foreground, 0.12), 0.88);
 @define-color tb alpha(mix(@background, @foreground, 0.12), 0.88);
-@define-color tbh @color3;
+@define-color tbh @cursor;
 @define-color text @foreground;
 @define-color label @color2;
 
@@ -55,7 +55,7 @@ window#waybar {
     color: @background;
     background: @ws;
     transition: all 0.3s ease-in-out;
-    opacity: 0.9;
+    opacity: 1;
 }
 
 #workspaces button:hover {
@@ -255,7 +255,7 @@ tooltip label {
 #custom-exit {
     background-color: @clock;
     margin: 3px 6px 3px 1px;
-    padding: 1px 9px 0px 9px;
+    padding: 1px 11px 0px 7px;
     font-size: 13px;
     color: @background;
 }

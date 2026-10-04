@@ -1,0 +1,65 @@
+/* GTK named colors from the current theme. Imported by gtk-3.0/gtk.css and gtk-4.0/gtk.css */
+@define-color wal_bg {background};
+@define-color wal_fg {foreground};
+@define-color wal_accent {cursor};
+@define-color wal_red {color1};
+@define-color wal_green {color2};
+@define-color wal_yellow {color3};
+
+@define-color wal_window mix(@wal_bg, @wal_fg, 0.05);
+@define-color wal_header mix(@wal_bg, @wal_fg, 0.09);
+@define-color wal_card mix(@wal_bg, @wal_fg, 0.10);
+@define-color wal_border mix(@wal_bg, @wal_fg, 0.18);
+@define-color wal_dim mix(@wal_bg, @wal_fg, 0.55);
+
+/* GTK3 names (Adwaita) */
+@define-color theme_bg_color @wal_window;
+@define-color theme_fg_color @wal_fg;
+@define-color theme_base_color @wal_bg;
+@define-color theme_text_color @wal_fg;
+@define-color theme_selected_bg_color @wal_accent;
+@define-color theme_selected_fg_color @wal_bg;
+@define-color theme_unfocused_bg_color @wal_window;
+@define-color theme_unfocused_fg_color @wal_dim;
+@define-color theme_unfocused_base_color @wal_bg;
+@define-color theme_unfocused_text_color @wal_dim;
+@define-color theme_unfocused_selected_bg_color @wal_accent;
+@define-color theme_unfocused_selected_fg_color @wal_bg;
+@define-color insensitive_bg_color @wal_window;
+@define-color insensitive_fg_color @wal_dim;
+@define-color insensitive_base_color @wal_bg;
+@define-color borders @wal_border;
+@define-color unfocused_borders @wal_border;
+@define-color link_color @wal_accent;
+@define-color success_color @wal_green;
+@define-color warning_color @wal_yellow;
+@define-color error_color @wal_red;
+
+/* GTK4 / libadwaita names */
+@define-color window_bg_color @wal_window;
+@define-color window_fg_color @wal_fg;
+@define-color view_bg_color @wal_bg;
+@define-color view_fg_color @wal_fg;
+@define-color headerbar_bg_color @wal_header;
+@define-color headerbar_fg_color @wal_fg;
+@define-color headerbar_border_color @wal_border;
+@define-color headerbar_backdrop_color @wal_window;
+@define-color card_bg_color @wal_card;
+@define-color card_fg_color @wal_fg;
+@define-color popover_bg_color @wal_card;
+@define-color popover_fg_color @wal_fg;
+@define-color dialog_bg_color @wal_window;
+@define-color dialog_fg_color @wal_fg;
+@define-color sidebar_bg_color @wal_header;
+@define-color sidebar_fg_color @wal_fg;
+@define-color accent_bg_color @wal_accent;
+@define-color accent_fg_color @wal_bg;
+@define-color accent_color @wal_accent;
+@define-color destructive_bg_color @wal_red;
+@define-color destructive_fg_color @wal_bg;
+@define-color success_bg_color @wal_green;
+@define-color success_fg_color @wal_bg;
+@define-color warning_bg_color @wal_yellow;
+@define-color warning_fg_color @wal_bg;
+@define-color error_bg_color @wal_red;
+@define-color error_fg_color @wal_bg;
