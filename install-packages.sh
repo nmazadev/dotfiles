@@ -5,7 +5,7 @@
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 parse_args "$@"
-require_paru
+ensure_paru
 
 install() { run paru -S --needed "$@"; }
 

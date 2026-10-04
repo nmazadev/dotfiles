@@ -4,7 +4,7 @@
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 parse_args "$@"
-require_paru
+ensure_paru
 
 # Apps: tlock (2FA tokens TUI), xleak (Excel viewer TUI), tabiew (CSV viewer TUI),
 # spotify (shown in waybar), onlyoffice, zed

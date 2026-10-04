@@ -13,9 +13,27 @@ parse_args() {
 
 run() { if ((dry)); then echo "+ $*"; else "$@"; fi; }
 
-require_paru() {
-    if ! command -v paru >/dev/null; then
-        echo "paru is required but not installed" >&2
+# ensure_paru: install paru if it is missing. EndeavourOS ships it in its own repo;
+# on plain Arch it is built from the AUR (paru-bin).
+ensure_paru() {
+    command -v paru >/dev/null && return 0
+    echo ":: paru not found, installing it"
+    if pacman -Si paru >/dev/null 2>&1; then
+        run sudo pacman -S --needed --noconfirm paru
+    else
+        run sudo pacman -S --needed --noconfirm base-devel git
+        local tmp
+        tmp=$(mktemp -d)
+        run git clone --depth 1 https://aur.archlinux.org/paru-bin.git "$tmp/paru-bin"
+        if ((dry)); then
+            echo "+ (cd $tmp/paru-bin && makepkg -si --noconfirm)"
+        else
+            (cd "$tmp/paru-bin" && makepkg -si --noconfirm)
+        fi
+        rm -rf "$tmp"
+    fi
+    if ((!dry)) && ! command -v paru >/dev/null; then
+        echo "paru could not be installed" >&2
         exit 1
     fi
 }

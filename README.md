@@ -24,7 +24,7 @@ The default palette is **cocoa** (cream on warm brown, terracotta and amber acce
 
 ## 🚀 Quick start
 
-On a fresh EndeavourOS with no desktop (needs `git` and `paru`):
+On a fresh EndeavourOS with no desktop (only `git` is needed; `paru` is installed automatically if missing):
 
 ```sh
 git clone git@github.com:nmazadev/dotfiles.git ~/dev/dotfiles
@@ -163,13 +163,13 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 
 | Keys | Does |
 | --- | --- |
-| `Print` (`Fn + F12` on many laptops) | the focused monitor |
-| `SHIFT + Print` | an area, which can span several monitors |
+| `Print` (`Fn + F12` on many laptops) | an area (drag to select; it can span several monitors) |
+| `SHIFT + Print` | the focused monitor |
 | `CTRL + Print` | all monitors in one image |
 | `ALT + Print` | the focused window |
 | `SUPER + Print` | the focused monitor after 5 s |
 
-In satty, `Enter` copies to the clipboard and `Esc` closes; the save button writes to `~/Pictures/Screenshots`. The palette follows the theme. The logic lives in `bin/screenshot`, which you can also run directly (`screenshot area --delay 3`, add `--cursor` to include the pointer).
+In satty, `Enter` copies to the clipboard and `Esc` closes; the save button writes to `~/Images/Screenshots`. The palette follows the theme. The logic lives in `bin/screenshot`, which you can also run directly (`screenshot area --delay 3`, add `--cursor` to include the pointer).
 
 Media keys handle volume, mic mute, playback and brightness.
 Layout switching is done by XKB (`grp:alt_shift_toggle` in `hypr/input.lua`), not a bind, so it works with any keyboard.

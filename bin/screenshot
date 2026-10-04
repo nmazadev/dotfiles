@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 # Take a screenshot and open it in satty to annotate, copy or save.
-# Usage: screenshot [screen|area|window|all] [--delay SECONDS] [--cursor]
-#   screen  the focused monitor (default)
-#   area    drag a region, it can span several monitors
+# Usage: screenshot [area|screen|window|all] [--delay SECONDS] [--cursor]
+#   area    drag a region, it can span several monitors (default)
+#   screen  the focused monitor
 #   window  the focused window
 #   all     every monitor in one image
 set -euo pipefail
 
-mode=screen delay=0 grim_args=()
+mode=area delay=0 grim_args=()
 while (($#)); do
     case "$1" in
         screen|area|window|all) mode=$1 ;;
         --delay) delay=$2; shift ;;
         --cursor) grim_args+=(-c) ;;
-        *) echo "usage: screenshot [screen|area|window|all] [--delay N] [--cursor]" >&2; exit 1 ;;
+        *) echo "usage: screenshot [area|screen|window|all] [--delay N] [--cursor]" >&2; exit 1 ;;
     esac
     shift
 done
 
-dir="$HOME/Pictures/Screenshots"
+dir="$HOME/Images/Screenshots"
 mkdir -p "$dir"
 
 # satty config follows the desktop theme (wal/templates/satty.toml)

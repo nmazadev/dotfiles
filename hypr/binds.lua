@@ -45,8 +45,8 @@ hl.bind(mod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -30, relative 
 hl.bind(mod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = true }))
 
 -- Screenshots: the Print key (Fn+F12 on laptops), opened in satty
-hl.bind("Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot screen"), { description = "Screenshot of the focused monitor" })
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot area"), { description = "Screenshot of an area" })
+hl.bind("Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot area"), { description = "Screenshot of an area" })
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot screen"), { description = "Screenshot of the focused monitor" })
 hl.bind("CTRL + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot all"), { description = "Screenshot of all monitors" })
 hl.bind("ALT + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot window"), { description = "Screenshot of the focused window" })
 hl.bind(mod .. " + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot screen --delay 5"), { description = "Screenshot after 5 s" })
