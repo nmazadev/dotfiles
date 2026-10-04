@@ -20,17 +20,18 @@ local function read(path)
     return s
 end
 
--- Returns the stable /dev/dri/by-path card path of each GPU, keyed by vendor.
--- by-path names survive reboots, unlike /dev/dri/cardN.
+-- Returns the /dev/dri/cardN path of each GPU, keyed by vendor. Detected fresh
+-- on every start, so card numbering changes between boots don't matter. The
+-- by-path names can't be used: they contain ':' which is also the separator
+-- of AQ_DRM_DEVICES, so Aquamarine splits them apart and finds no GPUs.
 local function detect_gpus()
     local gpus = {}
     for n = 0, 7 do
         local dir = "/sys/class/drm/card" .. n .. "/device/"
         local vendor = read(dir .. "vendor")
-        local slot = (read(dir .. "uevent") or ""):match("PCI_SLOT_NAME=(%S+)")
-        if vendor and slot then
+        if vendor then
             vendor = vendor:match("0x(%x+)")
-            local path = "/dev/dri/by-path/pci-" .. slot .. "-card"
+            local path = "/dev/dri/card" .. n
             if vendor == "8086" then gpus.intel = gpus.intel or path end
             if vendor == "10de" then gpus.nvidia = gpus.nvidia or path end
         end
