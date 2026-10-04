@@ -10,6 +10,13 @@ ensure_paru
 # spotify (shown in waybar), onlyoffice, zed
 run paru -S --needed tlock xleak-bin tabiew spotify onlyoffice-bin zed
 
+# Cursor (if installed): the Wal Theme extension, so the editor follows the desktop
+# theme (it reads ~/.cache/wal/colors.json and updates when it changes). Pick it once
+# in Cursor: Ctrl+K Ctrl+T -> "Wal". Extensions never touch Cursor's chats or data.
+if command -v cursor >/dev/null; then
+    run cursor --install-extension dlasagno.wal-theme
+fi
+
 # lidm needs a service provider; EndeavourOS uses systemd. It is installed
 # first so paru never asks which provider of lidm-service to use.
 service_provider=lidm-systemd
