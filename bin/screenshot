@@ -28,10 +28,14 @@ satty_args=(--filename - --output-filename "$dir/screenshot-%Y-%m-%d_%H-%M-%S.pn
 # pick the region before the delay, so the selection itself is not captured
 case "$mode" in
     area)
-        # shellcheck disable=SC1091
-        [[ -f "$HOME/.cache/wal/colors.sh" ]] && source "$HOME/.cache/wal/colors.sh"
-        accent=${cursor:-#c4785a}
-        region=$(slurp -d -b "${background:-#1c1412}66" -c "${accent}ff" -s 00000000 -w 2) || exit 0
+        # theme colors for the selection (read from colors.json: sourcing pywal's
+        # colors.sh breaks under set -u)
+        json="$HOME/.cache/wal/colors.json"
+        bg="#1c1412" accent="#c4785a"
+        if [[ -f $json ]]; then
+            bg=$(jq -r '.special.background' "$json") accent=$(jq -r '.special.cursor' "$json")
+        fi
+        region=$(slurp -d -b "${bg}66" -c "${accent}ff" -s 00000000 -w 2) || exit 0
         grim_args+=(-g "$region")
         ;;
     window)
