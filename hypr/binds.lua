@@ -16,6 +16,7 @@ hl.bind(mod .. " + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 hl.bind(mod .. " + W", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh"))
 
 hl.bind(mod .. " + M", hl.dsp.exec_cmd("wlogout -b 2"))
+hl.bind(mod .. " + N", hl.dsp.exec_cmd("makoctl mode -t do-not-disturb >/dev/null; pkill -RTMIN+8 waybar"), { description = "Toggle do not disturb" })
 hl.bind(mod .. " + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh"))
 hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh next"))
 

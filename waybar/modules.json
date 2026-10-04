@@ -23,15 +23,6 @@
 		},
 	},
    	
-	// taskbar
-	"wlr/taskbar": {
-		"format": "{icon}",
-		"icon-size": 18,
-		"tooltip-format": "{title}",
-		"on-click": "activate",
-		"on-click-middle": "close",
-	},
-	
 	// clock
 	"clock": {  
 		"interval": 60,
@@ -211,6 +202,43 @@
 		"format-icons": ["", "", "", "", ""]
 	},
 	
+	// do not disturb: click to silence notifications (mako mode), icon shows the state
+	"custom/notifications": {
+		"exec": "makoctl mode | grep -qx do-not-disturb && echo 󰂛 || echo 󰂚",
+		"interval": "once",
+		"signal": 8,
+		"on-click": "makoctl mode -t do-not-disturb >/dev/null; pkill -RTMIN+8 waybar",
+		"tooltip-format": "Notifications: click to toggle do not disturb"
+	},
+
+	// system tray, collapsed behind one button: click it to show the icons.
+	// Left-click an icon opens the app, right-click shows its menu (Quit, ...).
+	// named systray so its CSS id (#systray) does not clash with the tray module (#tray)
+	"group/systray": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-duration": 300,
+			"click-to-reveal": true,
+			"children-class": "tray-child",
+			"transition-left-to-right": true
+		},
+		"modules": [
+			"custom/tray-toggle",
+			"tray"
+		]
+	},
+
+	"custom/tray-toggle": {
+		"format": "󰅂",
+		"tooltip-format": "Tray: click to show"
+	},
+
+	"tray": {
+		"icon-size": 15,
+		"spacing": 8,
+		"show-passive-items": true
+	},
+
 	// power menu
 	"custom/exit": {
 		"format": "",

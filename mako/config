@@ -26,3 +26,7 @@ include=~/.cache/wal/colors-mako
 [urgency=high]
 border-color=#e66e6e
 default-timeout=0
+
+# Do not disturb (waybar bell / SUPER+N): hide everything, still kept in history
+[mode=do-not-disturb]
+invisible=1

@@ -13,8 +13,6 @@
 @define-color tt alpha(mix(@background, @foreground, 0.15), 0.95);
 @define-color clock @cursor;
 @define-color set alpha(mix(@background, @foreground, 0.12), 0.88);
-@define-color tb alpha(mix(@background, @foreground, 0.12), 0.88);
-@define-color tbh @cursor;
 @define-color text @foreground;
 @define-color label @color2;
 
@@ -62,26 +60,6 @@ window#waybar {
     color: @text;
     background: @ws;
     opacity: 0.9;
-    border: none;
-    box-shadow: none;
-}
-
-/* taskbar */
-#taskbar {
-    background: @tb;
-    margin: 3px 6px 3px 1px;
-    padding: 0px;
-}
-
-#taskbar button {
-    margin: 0px 1px;
-    border-radius: 10px;
-    padding: 0px 5px;
-}
-
-#taskbar button:hover {
-    background: @tbh;
-    opacity: 1;
     border: none;
     box-shadow: none;
 }
@@ -248,10 +226,23 @@ tooltip label {
     animation-direction: alternate;
 }
 
-/* tray */
+/* tray (inside the click-to-reveal drawer) and do not disturb */
+/* the whole group is one pill: just the arrow when collapsed, arrow + icons when open */
+#systray {
+    background-color: @set;
+    border-radius: 10px;
+    /* mirrors the power button on the right: same height, same gap to the screen edge */
+    margin: 3px 1px 3px 6px;
+    opacity: 0.9;
+}
+
 #tray {
-    padding: 0px 15px 0px 0px;
-    color: @text;
+    background-color: transparent;
+    padding: 0px 8px 0px 2px;
+}
+
+#tray > .active, #tray > .passive, #tray > .needs-attention {
+    padding: 1px 4px 0px 4px;
 }
 
 #tray > .passive {
@@ -259,16 +250,61 @@ tooltip label {
 }
 
 #tray > .needs-attention {
-    -gtk-icon-effect: highlight;
+    background-color: @cursor;
+    border-radius: 6px;
+}
+
+/* tray app menus (right-click) follow the theme */
+menu {
+    background-color: @background;
+    border: 1px solid @set;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+menuitem {
+    color: @text;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+menuitem:hover {
+    background-color: @cursor;
+    color: @background;
 }
 
 /* custom modules */
+/* icon buttons: one fixed size shared by the tray toggle, the bell and the power button */
+#custom-tray-toggle, #custom-notifications, #custom-exit {
+    min-width: 26px;
+    padding: 1px 0px 0px 0px;
+    margin: 3px 1px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+#custom-notifications {
+    background-color: @set;
+    color: @text;
+    opacity: 0.9;
+    /* the bell glyph leans right by about 1px: same 26px width, nudged left */
+    min-width: 24px;
+    padding-right: 2px;
+}
+
+#custom-tray-toggle {
+    background-color: transparent;
+    color: @text;
+    margin: 0px;
+}
+
 #custom-exit {
     background-color: @clock;
-    margin: 3px 6px 3px 1px;
-    padding: 1px 11px 0px 7px;
-    font-size: 13px;
     color: @background;
+    margin-right: 6px;
+    /* the power glyph sits 1.5px right of its box: same 26px width, nudged left */
+    min-width: 23px;
+    padding-right: 3px;
 }
 
 #custom-system {

@@ -24,8 +24,8 @@
 	
 	// modules
 	"modules-left": [
-	    "hyprland/workspaces",
-            "wlr/taskbar"
+	    "group/systray",
+	    "hyprland/workspaces"
         ],
         
         "modules-center": [
@@ -39,7 +39,8 @@
            "pulseaudio",
            "bluetooth",
            "network",
-           "battery", 
+           "battery",
+           "custom/notifications",
            "custom/exit"
         ]
 }

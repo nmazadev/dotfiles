@@ -88,9 +88,9 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 <details>
 <summary><b>📊 Inside <code>waybar/</code></b></summary>
 
-Workspaces and a taskbar on the left, the clock in the middle (long format with the day and month, click for the short one, hover for the calendar), then a Spotify
+On the left the system tray, folded behind a small arrow (click it to show the icons; right-click an icon for the app's menu, e.g. to quit Discord or Slack), then the workspaces; the clock in the middle (long format with the day and month, click for the short one, hover for the calendar), then a Spotify
 now-playing pill (title plus previous / play-pause / next buttons, hidden while Spotify is closed), a hardware group
-(CPU, temperature, disk, memory), the keyboard layout (click to switch), audio, bluetooth, network, battery and an exit button.
+(CPU, temperature, disk, memory), the keyboard layout (click to switch), audio, bluetooth, network, battery, a do-not-disturb bell (click it or `SUPER + N` to silence notifications), and an exit button.
 Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio, `bluetui` for bluetooth, `nmtui` for network.
 
 </details>
@@ -129,6 +129,7 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 | `SUPER + Return` | terminal |
 | `SUPER + A` | app launcher |
 | `SUPER + M` | logout menu |
+| `SUPER + N` | toggle do not disturb (notifications hidden, still kept) |
 | `SUPER + W` | new wallpaper (and new colors with the pywal theme) |
 | `SUPER + T` / `SUPER + SHIFT + T` | theme menu / next theme |
 | `SUPER + B` / `SUPER + SHIFT + B` | toggle / restart waybar |
