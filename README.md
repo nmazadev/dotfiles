@@ -21,12 +21,14 @@ Hyprland (Lua config) + Waybar on Arch, for Intel-only and hybrid Intel/NVIDIA l
 - `bin/` helper scripts, linked into `~/.local/bin`
   - `prime-run <cmd>` runs a program on the NVIDIA GPU (a plain pass-through if there is none)
 - `install.sh` symlinks everything into place
+- `install-extras.sh` installs the login manager (and other AUR extras) with `paru`
 
 ## Dependencies
 - Core: `hyprland` `waybar` `kitty` `wofi` `wlogout` `hypridle` `hyprlock` `awww` `yazi`
 - Bindings: `grimblast` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
 - Wallpaper script: `python-pywal` (`wal`), `imagemagick`; it expects images in `~/wallpapers/`
 - Fonts and cursor: JetBrains Mono, `rose-pine-hyprcursor`
+- Login manager (optional): `lidm` and `lidm-systemd` from the AUR, installed by `install-extras.sh`
 - Hybrid laptops only: `nvidia-open` (or `nvidia`) and `nvidia-utils`, optionally `libva-nvidia-driver`
 
 ## Install
@@ -35,6 +37,11 @@ Hyprland (Lua config) + Waybar on Arch, for Intel-only and hybrid Intel/NVIDIA l
 ./install.sh             # existing configs are moved to *.bak
 ```
 It links `hypr`, `waybar`, `kitty`, `wofi` and `wlogout` into `~/.config`, and each file in `bin/` into `~/.local/bin`. Running it again is safe: links that are already correct are left alone.
+
+## Login manager
+`./install-extras.sh` (supports `--dry-run`) installs [lidm](https://github.com/javalsai/lidm) with `paru`, disables `getty@tty1` and enables the lidm service. It takes effect on the next boot, and lidm lists the `Hyprland` session from `/usr/share/wayland-sessions/`.
+
+To roll back, switch to another tty (`Ctrl+Alt+F3`), log in and run `sudo systemctl disable lidm && sudo systemctl enable getty@tty1`.
 
 ## Keybindings
 `SUPER` is the main modifier.
