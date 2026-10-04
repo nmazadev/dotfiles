@@ -187,6 +187,12 @@ waybar, wofi, wlogout, mako, hyprlock, kitty, cava, the focused-window outline a
 - GTK apps are themed by `gtk-3.0/` and `gtk-4.0/`: `hypr/scripts/gtk-theme.sh` writes `~/.config/gtk-*/gtk.css` from the theme colors plus each folder's `extra.css`, and `settings.ini` sets dark mode and the font. Reopen an app to see a theme change.
 - To add a palette, copy a file in `wal/colorschemes/`, change the colors and run `./install.sh`.
 
+## 🖥️ Screen sharing
+
+Discord, browsers and OBS share through `xdg-desktop-portal` with the `xdg-desktop-portal-hyprland` backend (installed by `install-packages.sh`). Pick a monitor, window or region in the picker that pops up. `autostart.lua` restarts the portal at login so it always has the Hyprland backend; `hypr/xdph.conf` caps sharing at 60 fps and remembers your choice so apps can reshare without asking. The picker is a Qt app: it floats, centered and solid, and follows the theme through `qt6ct` (palette written by `gtk-theme.sh`, `QT_QPA_PLATFORMTHEME=qt6ct` in `env.lua`), like any other Qt app.
+
+If an app says screen sharing is unavailable, run `systemctl --user restart xdg-desktop-portal` and try again.
+
 ## 🎮 GPU notes
 
 `hypr/gpu.lua` detects GPUs from `/sys/class/drm` at startup, so nothing needs editing per machine.

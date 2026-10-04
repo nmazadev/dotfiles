@@ -15,6 +15,10 @@ run sudo systemctl enable --now fstrim.timer paccache.timer
 # (hyprpolkitagent is started by autostart.lua: it needs graphical-session.target otherwise)
 run sudo systemctl --global enable pipewire.socket pipewire-pulse.socket wireplumber.service
 
+# Screen sharing: a portal that was already running doesn't see a newly installed
+# xdg-desktop-portal-hyprland until it restarts
+run systemctl --user try-restart xdg-desktop-portal.service
+
 # zram: compressed swap in RAM, half the memory, zstd
 zram=/etc/systemd/zram-generator.conf
 if [[ ! -f $zram ]]; then

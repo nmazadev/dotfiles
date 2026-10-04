@@ -63,3 +63,12 @@ hl.window_rule({
     size = "1100 700",
     center = true,
 })
+
+-- screen share picker (xdg-desktop-portal-hyprland): a centered, solid dialog
+hl.window_rule({
+    name = "share-picker",
+    match = { class = "hyprland-share-picker" },
+    float = true,
+    center = true,
+    opacity = "1.0 override 1.0 override",
+})

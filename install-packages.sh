@@ -28,7 +28,7 @@ install pipewire pipewire-pulse pipewire-alsa wireplumber bluez bluez-utils netw
 install power-profiles-daemon zram-generator gnome-keyring
 
 # Portals (screen sharing, file dialogs) and the polkit agent (auth dialogs)
-install xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpolkitagent qt6-wayland
+install xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpolkitagent qt6-wayland qt6ct
 
 if has_gpu intel; then
     echo ":: Intel GPU detected"
