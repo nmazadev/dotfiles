@@ -131,6 +131,34 @@ tooltip label {
     color: @text;
 }
 
+/* now playing: the four modules in group/media read as one pill */
+#mpris, #custom-media-prev, #custom-media-toggle, #custom-media-next {
+    background-color: @set;
+    font-size: 16px;
+    color: @text;
+    padding: 1px 8px 0px 8px;
+    margin: 4px 0px;
+    opacity: 0.9;
+}
+
+#mpris {
+    border-radius: 5px 0 0 5px;
+    margin-left: 1px;
+}
+
+#custom-media-next {
+    border-radius: 0 5px 5px 0;
+    margin-right: 1px;
+}
+
+#custom-media-prev:hover, #custom-media-toggle:hover, #custom-media-next:hover, #mpris:hover {
+    opacity: 1;
+}
+
+#mpris.paused {
+    opacity: 0.6;
+}
+
 /* audio */
 #pulseaudio {
     background-color: @set;
