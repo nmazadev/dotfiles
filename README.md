@@ -9,7 +9,7 @@
 ![nmazadev](https://img.shields.io/badge/nmazadev-Waybar-a6e3a1?style=flat-square)
 ![nmazadev](https://img.shields.io/badge/nmazadev-pywal-f9e2af?style=flat-square)
 
-`hyprland` · `waybar` · `kitty` · `wofi` · `wlogout` · `pywal`
+`hyprland` · `waybar` · `kitty` · `wofi` · `wlogout` · `mako` · `pywal`
 
 Made for Intel-only and hybrid Intel + NVIDIA laptops.
 
@@ -41,7 +41,7 @@ cd ~/dev/dotfiles
 | --- | --- |
 | `install-packages.sh` | every package the setup needs, plus Intel and NVIDIA drivers when those GPUs are detected |
 | `install-services.sh` | enables NetworkManager, bluetooth, pipewire and the polkit agent, creates `~/wallpapers` |
-| `install.sh` | links `hypr`, `waybar`, `kitty`, `wofi` and `wlogout` into `~/.config` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
+| `install.sh` | links `hypr`, `waybar`, `kitty`, `wofi`, `wlogout` and `mako` into `~/.config`, the pywal templates into `~/.config/wal/templates` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
 | `install-extras.sh` | the lidm login manager and its theme |
 
 Everything is safe to run again. When it finishes, drop at least one image in `~/wallpapers` and log in to Hyprland. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
@@ -55,6 +55,8 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 | `kitty/` | terminal, JetBrains Mono 12 pt |
 | `wofi/` | app launcher config and style |
 | `wlogout/` | logout menu: layout, icons, style |
+| `mako/` | notification daemon, colored by pywal |
+| `wal/templates/` | pywal templates (so far the mako colors) |
 | `bin/` | helper scripts, linked into `~/.local/bin` |
 
 <details>
@@ -66,12 +68,12 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 - `monitors.lua` laptop panel (eDP-1 1920x1080@240), plus a catch-all rule: any other monitor gets its best resolution at the highest refresh rate, placed to the right
 - `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24)
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
-- `autostart.lua` starts `awww-daemon`, `waybar` and `hypridle`, and handles monitor hotplug
+- `autostart.lua` starts `awww-daemon`, `mako`, `hypridle` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
 - `looks.lua` dwindle layout, gaps, rounded corners, 0.92 opacity, no borders, blur off, animations
 - `input.lua` `us` + `latam` layouts, 3-finger swipe to change workspace
 - `binds.lua` keybindings, see [Keybindings](#-keybindings)
 - `hypridle.conf` / `hyprlock.conf` lock after 5 min, screen off after 6 min
-- `scripts/wallpaper.sh` picks a wallpaper, recolors with pywal and restarts waybar. It only reads your images and writes a blurred copy for wlogout
+- `scripts/wallpaper.sh` picks a wallpaper, recolors with pywal, restarts waybar and reloads mako. It only reads your images and writes a blurred copy for wlogout
 - `scripts/monitor-hotplug.sh` extends (never mirrors) new monitors, re-applies the wallpaper and relaunches waybar
 
 </details>
@@ -79,8 +81,10 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 <details>
 <summary><b>📊 Inside <code>waybar/</code></b></summary>
 
-Workspaces and a taskbar on the left, the clock (with calendar) in the middle, then a hardware group
+Workspaces and a taskbar on the left, the clock in the middle (long format with the day and month, click for the short one, hover for the calendar), then a Spotify
+now-playing pill (title plus previous / play-pause / next buttons, hidden while Spotify is closed), a hardware group
 (CPU, temperature, disk, memory), audio, bluetooth, network, battery and an exit button.
+Clicks open TUIs in kitty: `btop` for the hardware modules, `bluetui` for bluetooth, `nmtui` for network.
 
 </details>
 
@@ -95,7 +99,8 @@ Workspaces and a taskbar on the left, the clock (with calendar) in the middle, t
 
 `install-packages.sh` installs all of these:
 
-- **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `hypridle` `hyprlock` `awww` `yazi`
+- **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `mako` `hypridle` `hyprlock` `awww` `yazi`
+- **Music:** `spotify`, shown in waybar via its mpris module
 - **Bindings:** `grimblast-git` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
 - **TUIs (waybar clicks open them in kitty):** `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
@@ -189,6 +194,7 @@ sudo systemctl disable lidm && sudo systemctl enable getty@tty1
 - [Hyprland wiki](https://wiki.hypr.land/), including the NVIDIA and multi-GPU pages
 - [Hyprland](https://github.com/hyprwm/Hyprland), [hypridle](https://github.com/hyprwm/hypridle) and [hyprlock](https://github.com/hyprwm/hyprlock)
 - [Waybar](https://github.com/Alexays/Waybar)
+- [mako](https://github.com/emersion/mako)
 - [pywal](https://github.com/dylanaraps/pywal)
 - [lidm](https://github.com/javalsai/lidm)
 - [Arch Wiki: Hyprland](https://wiki.archlinux.org/title/Hyprland) and [NVIDIA](https://wiki.archlinux.org/title/NVIDIA)

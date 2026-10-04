@@ -1,0 +1,28 @@
+# mako notification daemon. Colors come from pywal (see wal/templates/colors-mako),
+# regenerated on every wallpaper change by hypr/scripts/wallpaper.sh.
+
+font=JetBrains Mono 11
+width=340
+height=120
+margin=12
+padding=12
+border-size=2
+border-radius=8
+icons=1
+max-icon-size=48
+default-timeout=6000
+anchor=top-right
+layer=overlay
+
+# Fallback colors, overridden by the pywal include below
+background-color=#1c1412E6
+text-color=#f0e4d2
+border-color=#c4785a
+progress-color=over #f0aa6e
+
+# Pywal colors, override the fallbacks above
+include=~/.cache/wal/colors-mako
+
+[urgency=high]
+border-color=#e66e6e
+default-timeout=0

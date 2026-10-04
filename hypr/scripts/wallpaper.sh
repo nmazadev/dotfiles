@@ -39,6 +39,9 @@ esac
 source "$HOME/.cache/wal/colors.sh"
 ~/.config/waybar/launch.sh
 
+# notifications pick up the new colors
+makoctl reload 2>/dev/null
+
 # update soft link to cava colors based on wallpaper colors
 # (cava needs to manually be restarted)
 ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config"

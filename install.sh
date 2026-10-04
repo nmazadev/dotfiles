@@ -25,8 +25,13 @@ link() { # link <source> <target>
     run ln -sfn "$src" "$dst"
 }
 
-for dir in hypr waybar kitty wofi wlogout; do
+for dir in hypr waybar kitty wofi wlogout mako; do
     link "$repo/$dir" "$HOME/.config/$dir"
+done
+
+# pywal templates: link the files only, ~/.config/wal/templates may hold others
+for tpl in "$repo"/wal/templates/*; do
+    link "$tpl" "$HOME/.config/wal/templates/$(basename "$tpl")"
 done
 
 for script in "$repo"/bin/*; do
