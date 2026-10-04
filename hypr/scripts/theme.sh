@@ -19,7 +19,7 @@ current=$(cat "$state" 2>/dev/null || echo cocoa)
 
 choice="$1"
 case "$choice" in
-    ""|--no-reload) choice=$(printf '%s\n' "${themes[@]}" | wofi --dmenu --prompt "theme ($current)" ) ;;
+    ""|--no-reload) choice=$(printf '%s\n' "${themes[@]}" | wofi --dmenu --prompt "theme ($current)" --style "$HOME/.cache/wal/wofi.css" --height 260 --width 360) ;;
     next)
         choice=${themes[0]}
         for i in "${!themes[@]}"; do
