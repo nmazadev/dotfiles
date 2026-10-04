@@ -19,7 +19,7 @@ Made for Intel-only and hybrid Intel + NVIDIA laptops.
 
 ## ✨ The vibe
 
-Compact and cozy: a slim 26 px bar, soft rounded corners, slightly see-through windows (0.95), tight 6 px gaps, no borders, no blur, gentle animations.
+Compact and cozy: a slim 26 px bar, soft rounded corners, slightly see-through windows (0.95), tight 6 px gaps, a slim accent outline on the focused window, no blur, gentle animations.
 The default palette is **cocoa** (cream on warm brown, terracotta and amber accents). `SUPER + T` opens a theme menu and `SUPER + SHIFT + T` cycles: `cocoa`, `rose-pine-moon`, `gruvbox`, `nord`, or `pywal`, where the colors follow the wallpaper. Rose Pine cursor, JetBrains Mono everywhere.
 
 ## 🚀 Quick start
@@ -69,12 +69,14 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 - `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24)
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
 - `autostart.lua` starts `awww-daemon`, `mako`, `hypridle` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
-- `looks.lua` dwindle layout, gaps, rounded corners, 0.92 opacity, no borders, blur off, animations
+- `looks.lua` dwindle layout, 3/6 px gaps, 12 px rounded corners, 0.95 opacity, a 2 px accent outline on the focused window (faint on the rest), blur off, animations
 - `input.lua` `us` + `latam` layouts, 3-finger swipe to change workspace
 - `binds.lua` keybindings, see [Keybindings](#-keybindings)
 - `hypridle.conf` / `hyprlock.conf` lock after 5 min, screen off after 6 min
 - `scripts/theme.sh` switches the color theme (see Themes below)
 - `scripts/wallpaper.sh` picks a wallpaper, recolors with pywal, restarts waybar and reloads mako. It only reads your images and writes a blurred copy for wlogout
+- `scripts/startup.sh` runs at login: restores the wallpaper and theme colors, then starts waybar
+- `scripts/gtk-theme.sh` writes the GTK3/GTK4 stylesheets from the current theme
 - `scripts/monitor-hotplug.sh` extends (never mirrors) new monitors, re-applies the wallpaper and relaunches waybar
 
 </details>
@@ -202,14 +204,28 @@ sudo systemctl disable lidm && sudo systemctl enable getty@tty1
 
 ## 📚 References
 
+**Base and inspiration**
 - [meowrch](https://github.com/meowrch/meowrch) and its [gpu-env.lua](https://github.com/meowrch/meowrch/blob/main/home/.config/hypr/default/gpu-env.lua), the base of the hybrid GPU setup
 - [Hyprland wiki](https://wiki.hypr.land/), including the NVIDIA and multi-GPU pages
-- [Hyprland](https://github.com/hyprwm/Hyprland), [hypridle](https://github.com/hyprwm/hypridle) and [hyprlock](https://github.com/hyprwm/hyprlock)
-- [Waybar](https://github.com/Alexays/Waybar)
-- [mako](https://github.com/emersion/mako)
-- [pywal](https://github.com/dylanaraps/pywal)
-- [lidm](https://github.com/javalsai/lidm)
 - [Arch Wiki: Hyprland](https://wiki.archlinux.org/title/Hyprland) and [NVIDIA](https://wiki.archlinux.org/title/NVIDIA)
+
+**Desktop**
+- [Hyprland](https://github.com/hyprwm/Hyprland), [hypridle](https://github.com/hyprwm/hypridle) and [hyprlock](https://github.com/hyprwm/hyprlock)
+- [Waybar](https://github.com/Alexays/Waybar), [mako](https://mako-project.org), [kitty](https://github.com/kovidgoyal/kitty), [wofi](https://hg.sr.ht/~scoopta/wofi) and [wlogout](https://github.com/ArtsyMacaw/wlogout)
+- [pywal](https://github.com/dylanaraps/pywal), which drives every theme
+- [lidm](https://github.com/javalsai/lidm), the login manager
+
+**Palettes**
+- [Rose Pine](https://rosepinetheme.com/), [Gruvbox](https://github.com/morhetz/gruvbox) (the sage variant follows [gruvbox-material](https://github.com/sainnhe/gruvbox-material)) and [Nord](https://www.nordtheme.com/)
+
+**Terminal tools**
+- [wiremix](https://github.com/tsowell/wiremix) (audio), [bluetui](https://github.com/pythops/bluetui) (bluetooth), `nmtui` from [NetworkManager](https://networkmanager.dev/) (network)
+- [btop](https://github.com/aristocratos/btop), [yazi](https://github.com/sxyazi/yazi), [glow](https://github.com/charmbracelet/glow), [fastfetch](https://github.com/fastfetch-cli/fastfetch) and [zoxide](https://github.com/ajeetdsouza/zoxide)
+- [tlock](https://github.com/eklairs/tlock) (2FA tokens), [xleak](https://github.com/bgreenwell/xleak) (Excel viewer) and [tabiew](https://github.com/shshemi/tabiew) (CSV viewer)
+
+**Apps**
+- [pavucontrol](https://freedesktop.org/software/pulseaudio/pavucontrol/) and [blueman](https://github.com/blueman-project/blueman), themed through GTK
+- [Spotify](https://www.spotify.com/) and [ONLYOFFICE](https://www.onlyoffice.com/)
 
 ---
 
