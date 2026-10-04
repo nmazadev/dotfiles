@@ -1,3 +1,4 @@
+-- Laptop panel
 hl.monitor({
     output = "eDP-1",
     mode = "1920x1080@240",
@@ -5,16 +6,11 @@ hl.monitor({
     scale = 1,
 })
 
-hl.monitor({
-    output = "desc:Microstep MSI G27C5 E2",
-    mode = "1920x1080@144",
-    position = "1920x0",
-    scale = 1,
-})
-
+-- Any other monitor (hotplug): best resolution at the highest refresh rate,
+-- placed to the right of the existing ones.
 hl.monitor({
     output = "",
-    mode = "preferred",
-    position = "auto",
+    mode = "highrr",
+    position = "auto-right",
     scale = 1,
 })
