@@ -7,8 +7,8 @@ parse_args "$@"
 require_paru
 
 # Apps: tlock (2FA tokens TUI), xleak (Excel viewer TUI), tabiew (CSV viewer TUI),
-# spotify (shown in waybar), onlyoffice
-run paru -S --needed tlock xleak-bin tabiew spotify onlyoffice-bin
+# spotify (shown in waybar), onlyoffice, zed
+run paru -S --needed tlock xleak-bin tabiew spotify onlyoffice-bin zed
 
 # lidm needs a service provider; EndeavourOS uses systemd. It is installed
 # first so paru never asks which provider of lidm-service to use.

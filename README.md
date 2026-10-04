@@ -41,7 +41,7 @@ cd ~/dev/dotfiles
 | `install-packages.sh` | every package the setup needs, plus Intel and NVIDIA drivers when those GPUs are detected |
 | `install-services.sh` | enables NetworkManager, bluetooth, pipewire and the polkit agent, creates `~/wallpapers` |
 | `install.sh` | links `hypr`, `waybar`, `kitty`, `wofi`, `wlogout` and `mako` into `~/.config`, the pywal templates into `~/.config/wal/templates` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
-| `install-extras.sh` | optional apps (`tlock`, `xleak-bin`, `tabiew`, `spotify`, `onlyoffice-bin`) and the lidm login manager with its theme |
+| `install-extras.sh` | optional apps (`tlock`, `xleak-bin`, `tabiew`, `zed`, `spotify`, `onlyoffice-bin`) and the lidm login manager with its theme |
 
 Everything is safe to run again. When it finishes, drop at least one image in `~/wallpapers` and log in to Hyprland. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
 
@@ -52,7 +52,9 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 | `hypr/` | Hyprland, written in Lua and split by concern |
 | `waybar/` | the top bar, `launch.sh` restarts it |
 | `kitty/` | terminal, JetBrains Mono 12 pt |
-| `wofi/` | app launcher config and style |
+| `wofi/` | the `SUPER + A` app launcher: config and a theme-aware style |
+| `vim/` | `vimrc` and the `cozy` colorscheme, which follows the terminal palette so vim matches the theme |
+| `fastfetch/` | fastfetch config (OS, host, CPU, both GPUs, RAM, disk, every monitor with refresh rate, battery, uptime, now playing) and logos |
 | `wlogout/` | logout menu: layout, icons, style |
 | `gtk-3.0/`, `gtk-4.0/` | GTK settings and extra styling for pavucontrol, blueman and other GTK apps |
 | `mako/` | notification daemon, colored by pywal |
@@ -66,7 +68,7 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 
 - `vars.lua` terminal (`kitty`), file manager (`yazi`), launcher (`wofi --show drun`), main mod (`SUPER`)
 - `monitors.lua` laptop panel (eDP-1 1920x1080@240), plus a catch-all rule: any other monitor gets its best resolution at the highest refresh rate, placed to the right
-- `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24)
+- `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24) and `vim` as the default `EDITOR`/`VISUAL`
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
 - `autostart.lua` starts `awww-daemon`, `mako`, `hypridle` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
 - `looks.lua` dwindle layout, 3/6 px gaps, 12 px rounded corners, 0.95 opacity, a 2 px accent outline on the focused window (faint on the rest), blur off, animations
@@ -105,12 +107,13 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 
 - **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `mako` `hypridle` `hyprlock` `awww` `yazi`
 - **Bindings:** `grim` + `slurp` + `satty` + `wl-clipboard` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
+- **System info:** `fastfetch` (config in `fastfetch/`)
 - **TUIs (waybar clicks open them in kitty):** `wiremix` (audio), `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
 - **Look:** JetBrains Mono (+ Nerd Font), Noto fonts, `adwaita-icon-theme`, `rose-pine-hyprcursor`
 - **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`
 - **GPU (detected):** `mesa` `vulkan-intel` `intel-media-driver`, and `nvidia-open` `nvidia-utils` `egl-wayland` `libva-nvidia-driver`
-- **Extras (`install-extras.sh`):** `tlock` (2FA tokens TUI), `xleak-bin` (Excel viewer TUI), `tabiew` (CSV viewer TUI), `spotify` (shown in waybar through its mpris module), `onlyoffice-bin`, and the login manager `lidm` + `lidm-systemd` from the AUR
+- **Extras (`install-extras.sh`):** `tlock` (2FA tokens TUI), `xleak-bin` (Excel viewer TUI), `tabiew` (CSV viewer TUI), `zed`, `spotify` (shown in waybar through its mpris module), `onlyoffice-bin`, and the login manager `lidm` + `lidm-systemd` from the AUR
 
 ## ⌨️ Keybindings
 
@@ -174,6 +177,8 @@ waybar, wofi, wlogout, mako, hyprlock, kitty, cava, the focused-window outline a
 - Fixed palettes live in `wal/colorschemes/*.json` (`cocoa`, `rose-pine-moon`, `gruvbox`, `nord`), linked by `install.sh`. The `cursor` color is the accent used for the clock, exit button and notification borders.
 - `pywal` derives the colors from the current wallpaper instead.
 - `hypr/scripts/theme.sh [name|next]` applies one (no argument opens a wofi menu) and remembers it in `~/.cache/wal/theme`; `SUPER + W` keeps the chosen theme and only changes the wallpaper, unless it is `pywal`.
+- The wofi launcher is styled by `wofi/style.css`; `gtk-theme.sh` prepends the theme colors into `~/.cache/wal/wofi.css`, which `hypr/vars.lua` passes to wofi.
+- vim uses its own `cozy` colorscheme built from the terminal's 16 ANSI colors, so it follows the theme as soon as kitty does (new terminals pick the colors up through pywal's sequences).
 - GTK apps are themed by `gtk-3.0/` and `gtk-4.0/`: `hypr/scripts/gtk-theme.sh` writes `~/.config/gtk-*/gtk.css` from the theme colors plus each folder's `extra.css`, and `settings.ini` sets dark mode and the font. Reopen an app to see a theme change.
 - To add a palette, copy a file in `wal/colorschemes/`, change the colors and run `./install.sh`.
 
@@ -228,6 +233,7 @@ sudo systemctl disable lidm && sudo systemctl enable getty@tty1
 **Terminal tools**
 - [wiremix](https://github.com/tsowell/wiremix) (audio), [bluetui](https://github.com/pythops/bluetui) (bluetooth), `nmtui` from [NetworkManager](https://networkmanager.dev/) (network)
 - [btop](https://github.com/aristocratos/btop), [yazi](https://github.com/sxyazi/yazi), [glow](https://github.com/charmbracelet/glow), [fastfetch](https://github.com/fastfetch-cli/fastfetch) and [zoxide](https://github.com/ajeetdsouza/zoxide)
+- [Zed](https://zed.dev/) (editor) and [vim](https://www.vim.org/)
 - [tlock](https://github.com/eklairs/tlock) (2FA tokens), [xleak](https://github.com/bgreenwell/xleak) (Excel viewer) and [tabiew](https://github.com/shshemi/tabiew) (CSV viewer)
 
 **Apps**

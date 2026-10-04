@@ -25,7 +25,7 @@ link() { # link <source> <target>
     run ln -sfn "$src" "$dst"
 }
 
-for dir in hypr waybar kitty wofi wlogout mako; do
+for dir in hypr waybar kitty wofi wlogout mako fastfetch; do
     link "$repo/$dir" "$HOME/.config/$dir"
 done
 
@@ -33,6 +33,10 @@ done
 for f in gtk-3.0/settings.ini gtk-4.0/settings.ini; do
     link "$repo/$f" "$HOME/.config/$f"
 done
+
+# vim: the vimrc and the colorscheme that uses the terminal palette
+link "$repo/vim/vimrc" "$HOME/.vimrc"
+link "$repo/vim/colors/cozy.vim" "$HOME/.vim/colors/cozy.vim"
 
 # pywal templates: link the files only, ~/.config/wal/templates may hold others
 for tpl in "$repo"/wal/templates/*; do

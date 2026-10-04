@@ -1,0 +1,32 @@
+" Minimal vim setup. Colors come from the terminal palette (see colors/cozy.vim),
+" so vim follows the desktop theme with no extra step.
+
+set nocompatible
+syntax on
+filetype plugin indent on
+
+set notermguicolors
+set background=dark
+colorscheme cozy
+
+set number
+set cursorline
+set mouse=a
+set scrolloff=5
+set laststatus=2
+set noshowmode
+set hidden
+set wildmenu
+
+set ignorecase smartcase
+set incsearch hlsearch
+
+set expandtab shiftwidth=4 softtabstop=4
+set autoindent
+set nowrap
+
+" clear search highlight with Esc
+nnoremap <silent> <Esc> :nohlsearch<CR>
+
+" a statusline in the same style as the bar: mode-less, file left, position right
+set statusline=\ %f%m%r%=%y\ %l:%c\ 
