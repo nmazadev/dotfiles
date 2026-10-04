@@ -61,7 +61,29 @@ for p in "${paths[@]}"; do
     [[ -e $p || -L $p ]] && existing+=("$p")
 done
 
-if ((${#packages[@]} == 0 && ${#existing[@]} == 0)); then
+# boot splash: meowrch's Plymouth theme -> bgrt-nologo (MSI logo + spinner, no distro
+# logo), set up by boot-splash.sh, which also rebuilds the initramfs
+splash=""
+if command -v plymouth-set-default-theme >/dev/null; then
+    current_theme=$(plymouth-set-default-theme 2>/dev/null || true)
+    if [[ $current_theme != bgrt-nologo ]]; then splash=$current_theme; fi
+fi
+
+# GRUB theme: meowrch copies its theme to /boot/grub/themes/meowrch and points
+# GRUB_THEME at it; the line is commented out (backup: /etc/default/grub.bak) so GRUB
+# goes back to its plain menu
+grub_theme=0
+if grep -qs '^GRUB_THEME=.*meowrch' /etc/default/grub; then
+    grub_theme=1
+fi
+
+# meowrch theme folders outside $HOME (its login screen, boot splash and GRUB themes)
+system_paths=()
+for p in /boot/grub/themes/meowrch /usr/share/sddm/themes/meowrch /usr/share/plymouth/themes/meowrch; do
+    [[ -e $p ]] && system_paths+=("$p")
+done
+
+if ((${#packages[@]} == 0 && ${#existing[@]} == 0 && ${#system_paths[@]} == 0 && !grub_theme)) && [[ -z $splash ]]; then
     echo "Nothing from meowrch left to remove."
     exit 0
 fi
@@ -70,6 +92,16 @@ echo ":: Packages to remove (with their unused dependencies):"
 ((${#packages[@]})) && printf '   %s\n' "${packages[@]}" || echo "   none"
 echo ":: Files and folders to delete:"
 ((${#existing[@]})) && printf '   %s\n' "${existing[@]/#$HOME/\~}" || echo "   none"
+if ((${#system_paths[@]})); then
+    echo ":: System folders to delete (sudo):"
+    printf '   %s\n' "${system_paths[@]}"
+fi
+if ((grub_theme)); then
+    echo ":: GRUB: meowrch theme turned off (GRUB_THEME commented out), grub.cfg regenerated"
+fi
+if [[ -n $splash ]]; then
+    echo ":: Boot splash: Plymouth theme '$splash' -> 'bgrt-nologo' (MSI logo + spinner), via boot-splash.sh"
+fi
 echo
 echo "Tip: install-over.sh took a 'post-dotfiles' snapshot; anything here can be copied back from it."
 
@@ -95,5 +127,22 @@ for p in "${packages[@]}"; do
         echo "   kept $p (another package depends on it)"
     fi
 done
+
+# boot splash first: it moves Plymouth off the meowrch theme before that folder goes
+if [[ -n $splash ]]; then
+    "$repo/boot-splash.sh"
+fi
+
+if ((grub_theme)); then
+    echo ":: turning off the meowrch GRUB theme"
+    sudo cp /etc/default/grub /etc/default/grub.bak
+    sudo sed -i 's/^GRUB_THEME=/#GRUB_THEME=/' /etc/default/grub
+fi
+for p in "${system_paths[@]}"; do
+    sudo rm -rf -- "$p"
+done
+if ((grub_theme)); then
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+fi
 
 echo "Done."

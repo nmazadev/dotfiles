@@ -64,7 +64,7 @@ No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup
 3. Runs `bootstrap.sh`. Replaced configs are kept as `*.bak`.
 4. Takes a second snapshot **after** (`post-dotfiles-<date>`), a milestone of the working setup before the cleanup.
 
-`cleanup-meowrch.sh` removes only meowrch's desktop pieces (bspwm, polybar, rofi, dunst/swaync, SDDM, fish, starship, its theming tools, ...), its helper scripts and user services, and the `*.bak` copies of replaced configs. Apps you may use for work (Firefox, VS Code, Discord, LibreOffice, databases, ...) and app data such as `~/.config/Cursor` and `~/.cursor` are never touched.
+`cleanup-meowrch.sh` removes only meowrch's desktop pieces (bspwm, polybar, rofi, dunst/swaync, SDDM, fish, starship, its theming tools, ...), its helper scripts and user services, and the `*.bak` copies of replaced configs. It turns off meowrch's GRUB theme (backup in `/etc/default/grub.bak`) and deletes its GRUB, SDDM and Plymouth theme folders. It also switches the boot splash (Plymouth, which draws the disk-unlock prompt) from meowrch's theme to `bgrt-nologo` (the MSI/firmware logo with a spinner, see Boot splash below). Apps you may use for work (Firefox, VS Code, Discord, LibreOffice, databases, ...) and app data such as `~/.config/Cursor` and `~/.cursor` are never touched.
 
 `snapshot.sh [label]` works on its own any time (`./snapshot.sh --list` shows them). To get something back, copy it out of a snapshot (`cp -a /home/.snapshots/pre-dotfiles-<date>/$USER/.config/<dir> ~/.config/<dir>.old`). When you're happy, delete the snapshots with `sudo btrfs subvolume delete <path>`.
 
@@ -211,6 +211,10 @@ waybar, wofi, wlogout, mako, hyprlock, kitty, cava, the focused-window outline a
 - GTK apps are themed by `gtk-3.0/` and `gtk-4.0/`: `hypr/scripts/gtk-theme.sh` writes `~/.config/gtk-*/gtk.css` from the theme colors plus each folder's `extra.css`, and `settings.ini` sets dark mode and the font. Reopen an app to see a theme change.
 - To add a palette, copy a file in `wal/colorschemes/`, change the colors and run `./install.sh`.
 
+## 🚀 Boot splash (optional)
+
+`./boot-splash.sh` (supports `--dry-run`) adds a Plymouth splash with `bgrt-nologo`: the built-in `bgrt` theme (the MSI/firmware logo with a small spinner, and a clean graphical disk-unlock prompt) without the Arch logo it shows at the bottom. It takes a `pre-splash` snapshot, installs `plymouth`, adds `quiet splash` to GRUB's kernel options (backup in `/etc/default/grub.bak`) and rebuilds the initramfs (dracut or mkinitcpio, whichever the machine uses).
+
 ## 🖥️ Screen sharing
 
 Discord, browsers and OBS share through `xdg-desktop-portal` with the `xdg-desktop-portal-hyprland` backend (installed by `install-packages.sh`). Pick a monitor, window or region in the picker that pops up. `autostart.lua` restarts the portal at login so it always has the Hyprland backend; `hypr/xdph.conf` caps sharing at 60 fps and remembers your choice so apps can reshare without asking. The picker is a Qt app: it floats, centered and solid, and follows the theme through `qt6ct` (palette written by `gtk-theme.sh`, `QT_QPA_PLATFORMTHEME=qt6ct` in `env.lua`), like any other Qt app.
@@ -230,6 +234,8 @@ The hybrid branch follows [meowrch's gpu-env.lua](https://github.com/meowrch/meo
 ## 🔐 Login manager
 
 `./install-extras.sh` installs [lidm](https://github.com/javalsai/lidm) with `paru`, disables `getty@tty1` and enables the lidm service. It takes effect on the next boot, and lidm lists the `Hyprland` session from `/usr/share/wayland-sessions/`.
+
+It also adds a **Hyprland (quiet)** session (`lidm/hyprland-quiet*`): the same Hyprland, but its startup log goes to `~/.local/state/start-hyprland.log` instead of flashing on the screen right after you log in. Pick it once in lidm; lidm remembers the last session.
 
 <details>
 <summary>Roll back</summary>

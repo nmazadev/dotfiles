@@ -21,6 +21,12 @@ run paru -S --needed lidm
 repo=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 run sudo install -b -S .bak -m 644 "$repo/lidm/lidm.ini" /etc/lidm.ini
 
+# "Hyprland (quiet)" session: same Hyprland, but its startup log goes to a file instead
+# of flashing on the console after login. lidm also reads /usr/local/share, which no
+# package owns, and remembers the last session picked.
+run sudo install -Dm755 "$repo/lidm/hyprland-quiet" /usr/local/bin/hyprland-quiet
+run sudo install -Dm644 "$repo/lidm/hyprland-quiet.desktop" /usr/local/share/wayland-sessions/hyprland-quiet.desktop
+
 # Unit name comes from the package; fall back to the usual one
 unit=$(pacman -Ql "$service_provider" 2>/dev/null | awk '/\.service$/ { n = split($2, a, "/"); print a[n]; exit }' || true)
 unit=${unit:-lidm.service}

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Hyprland (quiet)
+Comment=Hyprland without the startup log on the console
+Exec=/usr/local/bin/hyprland-quiet
+Type=Application
+DesktopNames=Hyprland

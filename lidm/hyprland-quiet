@@ -1,0 +1,5 @@
+#!/bin/sh
+# Start Hyprland without its startup log scrolling on the console after login.
+# The log goes to ~/.local/state/start-hyprland.log instead (useful when it won't start).
+mkdir -p "$HOME/.local/state"
+exec /usr/bin/start-hyprland "$@" >"$HOME/.local/state/start-hyprland.log" 2>&1
