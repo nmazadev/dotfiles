@@ -54,3 +54,12 @@ hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "default" }
 hl.animation({ leaf = "borderangle", enabled = true, speed = 8, bezier = "default" })
 hl.animation({ leaf = "fade", enabled = true, speed = 7, bezier = "default" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "default" })
+
+-- satty (screenshot annotation) opens as a floating window instead of tiling
+hl.window_rule({
+    name = "satty-float",
+    match = { class = "com.gabm.satty" },
+    float = true,
+    size = "1100 700",
+    center = true,
+})

@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Take a screenshot and open it in satty to annotate, copy or save.
+# Usage: screenshot [screen|area|window|all] [--delay SECONDS] [--cursor]
+#   screen  the focused monitor (default)
+#   area    drag a region, it can span several monitors
+#   window  the focused window
+#   all     every monitor in one image
+set -euo pipefail
+
+mode=screen delay=0 grim_args=()
+while (($#)); do
+    case "$1" in
+        screen|area|window|all) mode=$1 ;;
+        --delay) delay=$2; shift ;;
+        --cursor) grim_args+=(-c) ;;
+        *) echo "usage: screenshot [screen|area|window|all] [--delay N] [--cursor]" >&2; exit 1 ;;
+    esac
+    shift
+done
+
+dir="$HOME/Pictures/Screenshots"
+mkdir -p "$dir"
+
+# satty config follows the desktop theme (wal/templates/satty.toml)
+satty_args=(--filename - --output-filename "$dir/screenshot-%Y-%m-%d_%H-%M-%S.png")
+[[ -f "$HOME/.cache/wal/satty.toml" ]] && satty_args+=(--config "$HOME/.cache/wal/satty.toml")
+
+# pick the region before the delay, so the selection itself is not captured
+case "$mode" in
+    area)
+        # shellcheck disable=SC1091
+        [[ -f "$HOME/.cache/wal/colors.sh" ]] && source "$HOME/.cache/wal/colors.sh"
+        accent=${cursor:-#c4785a}
+        region=$(slurp -d -b "${background:-#1c1412}66" -c "${accent}ff" -s 00000000 -w 2) || exit 0
+        grim_args+=(-g "$region")
+        ;;
+    window)
+        region=$(hyprctl activewindow -j | jq -r 'select(.address) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+        [[ -n "$region" ]] || { notify-send "Screenshot" "No focused window"; exit 1; }
+        grim_args+=(-g "$region")
+        ;;
+    screen)
+        output=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
+        grim_args+=(-o "$output")
+        ;;
+esac
+
+((delay)) && sleep "$delay"
+
+grim "${grim_args[@]}" - | satty "${satty_args[@]}"

@@ -15,7 +15,7 @@ install base-devel git xdg-utils xdg-user-dirs
 install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi
 
 # Helpers used by binds, waybar and the wallpaper script
-install grimblast-git brightnessctl playerctl python-pywal imagemagick jq libnotify mako \
+install grim slurp wl-clipboard satty brightnessctl playerctl python-pywal imagemagick jq libnotify mako \
     btop bluetui wiremix blueman cava pavucontrol glow fastfetch zoxide
 
 # Fonts, icons and cursor

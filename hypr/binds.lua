@@ -43,10 +43,12 @@ hl.bind(mod .. " + SHIFT + left", hl.dsp.window.resize({ x = -30, y = 0, relativ
 hl.bind(mod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -30, relative = true }))
 hl.bind(mod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = true }))
 
-hl.bind(mod .. " + P", hl.dsp.exec_cmd("grimblast save screen"))
-hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("sleep 5 && grimblast save screen"))
-hl.bind(mod .. " + CTRL + P", hl.dsp.exec_cmd("grimblast --cursor save screen"))
-hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("grimblast save area"))
+-- Screenshots: the Print key (Fn+F12 on laptops), opened in satty
+hl.bind("Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot screen"), { description = "Screenshot of the focused monitor" })
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot area"), { description = "Screenshot of an area" })
+hl.bind("CTRL + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot all"), { description = "Screenshot of all monitors" })
+hl.bind("ALT + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot window"), { description = "Screenshot of the focused window" })
+hl.bind(mod .. " + Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot screen --delay 5"), { description = "Screenshot after 5 s" })
 
 -- SYSTEM CONTROLS
 -- Volume (PipeWire)

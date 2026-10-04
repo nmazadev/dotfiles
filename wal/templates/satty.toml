@@ -1,0 +1,13 @@
+# satty config, colors from the current theme (see hypr/scripts/theme.sh)
+[general]
+early-exit = true
+corner-roundness = 12
+initial-tool = "arrow"
+copy-command = "wl-copy"
+actions-on-enter = ["save-to-clipboard"]
+actions-on-escape = ["exit"]
+primary-highlighter = "block"
+annotation-size-factor = 1.5
+
+[color-palette]
+palette = ["{cursor}", "{color1}", "{color2}", "{color3}", "{color4}", "{color5}", "{foreground}", "{background}"]

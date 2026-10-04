@@ -35,6 +35,7 @@
        "modules-right": [
            "group/media",
            "group/hardware",
+           "hyprland/language",
            "pulseaudio",
            "bluetooth",
            "network",

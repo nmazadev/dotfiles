@@ -150,6 +150,13 @@
 		"on-click": "playerctl -p spotify play-pause"
 	},
 
+	// keyboard layout (switch with ALT+SHIFT, or click)
+	"hyprland/language": {
+		"format": "󰌌 {short}",
+		"on-click": "hyprctl switchxkblayout all next",
+		"tooltip-format": "{long}"
+	},
+
 	// audio
 	"pulseaudio": {
 		"scroll-step": 1,
