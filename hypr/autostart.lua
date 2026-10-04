@@ -1,9 +1,11 @@
-local hotplug = (os.getenv("HOME") or "") .. "/.config/hypr/scripts/monitor-hotplug.sh"
+local home = os.getenv("HOME") or ""
+local hotplug = home .. "/.config/hypr/scripts/monitor-hotplug.sh"
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("waybar")
+    hl.exec_cmd(home .. "/.config/hypr/scripts/startup.sh")
     hl.exec_cmd("hypridle")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 
 -- New or removed monitors: wallpaper + waybar refresh (layout is handled by monitors.lua)

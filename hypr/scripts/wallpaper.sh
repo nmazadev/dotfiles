@@ -23,8 +23,8 @@ current_wallpaper=$(cat "$current_wp")
 # select new wallpaper
 case $1 in
     "init")
-        if [ -f $current_wp ]; then
-            wal -q -i $current_wallpaper
+        if [ -f "$current_wallpaper" ]; then
+            wal -q -i "$current_wallpaper"
         else
             wal -q -i ~/wallpapers/
         fi

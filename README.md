@@ -25,18 +25,26 @@ launcher to match. Rose Pine cursor, JetBrains Mono everywhere.
 
 ## 🚀 Quick start
 
+On a fresh EndeavourOS with no desktop (needs `git` and `paru`):
+
 ```sh
 git clone git@github.com:nmazadev/dotfiles.git ~/dev/dotfiles
 cd ~/dev/dotfiles
 
-./install.sh --dry-run   # peek first
-./install.sh             # existing configs are moved to *.bak
+./bootstrap.sh --dry-run   # peek first
+./bootstrap.sh
 ```
 
-It links `hypr`, `waybar`, `kitty`, `wofi` and `wlogout` into `~/.config`, and everything in `bin/`
-into `~/.local/bin`. Running it again is safe: links that are already correct are left alone.
+`bootstrap.sh` runs these in order, and each one also works on its own (all take `--dry-run`):
 
-Want a login screen too? `./install-extras.sh` (also takes `--dry-run`).
+| Script | Does |
+| --- | --- |
+| `install-packages.sh` | every package the setup needs, plus Intel and NVIDIA drivers when those GPUs are detected |
+| `install-services.sh` | enables NetworkManager, bluetooth, pipewire and the polkit agent, creates `~/wallpapers` |
+| `install.sh` | links `hypr`, `waybar`, `kitty`, `wofi` and `wlogout` into `~/.config` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
+| `install-extras.sh` | the lidm login manager and its theme |
+
+Everything is safe to run again. When it finishes, drop at least one image in `~/wallpapers` and log in to Hyprland. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
 
 ## 🧺 What's in the basket
 
@@ -85,12 +93,15 @@ Workspaces and a taskbar on the left, the clock (with calendar) in the middle, t
 
 ## 📦 Ingredients
 
+`install-packages.sh` installs all of these:
+
 - **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `hypridle` `hyprlock` `awww` `yazi`
-- **Bindings:** `grimblast` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
+- **Bindings:** `grimblast-git` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
-- **Look:** JetBrains Mono, `rose-pine-hyprcursor`
-- **Login manager (optional):** `lidm` and `lidm-systemd` from the AUR
-- **Hybrid laptops only:** `nvidia-open` (or `nvidia`) and `nvidia-utils`, optionally `libva-nvidia-driver`
+- **Look:** JetBrains Mono (+ Nerd Font), `rose-pine-hyprcursor`, Noto fonts
+- **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`
+- **GPU (detected):** `mesa` `vulkan-intel` `intel-media-driver`, and `nvidia-open` `nvidia-utils` `egl-wayland` `libva-nvidia-driver`
+- **Login manager:** `lidm` and `lidm-systemd` from the AUR
 
 ## ⌨️ Keybindings
 
