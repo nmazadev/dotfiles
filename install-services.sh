@@ -40,9 +40,13 @@ done
 
 run xdg-user-dirs-update
 
-# wallpaper.sh picks images from here
+# wallpaper.sh picks images from here; the repo's wallpapers are copied in
+# (not linked) so you can add or remove your own freely
 run mkdir -p "$HOME/wallpapers"
+for wp in "$(dirname "${BASH_SOURCE[0]}")"/wallpapers/*; do
+    [[ -f $wp && ! -e "$HOME/wallpapers/$(basename "$wp")" ]] && run cp "$wp" "$HOME/wallpapers/"
+done
 
 echo
-echo "Done. Put at least one image in ~/wallpapers: the next Hyprland login sets the"
-echo "wallpaper and generates the pywal colors that waybar and kitty use."
+echo "Done. The next Hyprland login sets the wallpaper from ~/wallpapers (add your own"
+echo "images there any time; SUPER+W picks one at random)."

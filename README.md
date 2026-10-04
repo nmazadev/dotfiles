@@ -43,7 +43,7 @@ cd ~/dev/dotfiles
 | `install.sh` | links `~/.zshrc`, the per-user `makepkg.conf`, `hypr`, `waybar`, `kitty`, `wofi`, `wlogout` and `mako` into `~/.config`, the pywal templates into `~/.config/wal/templates` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
 | `install-extras.sh` | optional apps (`tlock`, `xleak-bin`, `tabiew`, `zed`, `spotify`, `onlyoffice-bin`) and the lidm login manager with its theme |
 
-Everything is safe to run again. When it finishes, drop at least one image in `~/wallpapers` and log in to Hyprland. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
+Everything is safe to run again. When it finishes, log in to Hyprland: the repo's wallpaper is already in `~/wallpapers`, and you can drop more images there. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
 
 ## 🧺 What's in the basket
 
@@ -60,6 +60,7 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 | `wlogout/` | logout menu: layout, icons, style |
 | `gtk-3.0/`, `gtk-4.0/` | GTK settings and extra styling for pavucontrol, blueman and other GTK apps |
 | `mako/` | notification daemon, colored by pywal |
+| `wallpapers/` | the default wallpaper, copied into `~/wallpapers` by `install-services.sh` |
 | `wal/` | `colorschemes/` (the fixed palettes) and `templates/` (pywal templates, so far the mako colors) |
 | `bin/` | helper scripts, linked into `~/.local/bin` |
 
@@ -216,6 +217,9 @@ sudo systemctl disable lidm && sudo systemctl enable getty@tty1
 `hypr/monitors.lua` is written for my laptop. On other hardware, edit it for your panel; an unsupported mode makes Hyprland warn and fall back to the preferred one.
 
 ## 📚 References
+
+**Wallpaper**
+- [Photo by elliott on Unsplash](https://unsplash.com/photos/BNMKtpMgkUw) (`wallpapers/elliott-BNMKtpMgkUw-unsplash.jpg`)
 
 **Base and inspiration**
 - [meowrch](https://github.com/meowrch/meowrch) and its [gpu-env.lua](https://github.com/meowrch/meowrch/blob/main/home/.config/hypr/default/gpu-env.lua), the base of the hybrid GPU setup
