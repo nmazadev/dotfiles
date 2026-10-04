@@ -36,6 +36,11 @@ done
 link "$repo/zsh/zshrc" "$HOME/.zshrc"
 link "$repo/pacman/makepkg.conf" "$HOME/.config/pacman/makepkg.conf"
 
+# micro (for notes): settings and the cozy colorscheme. Files only: micro keeps
+# backups and history in ~/.config/micro too
+link "$repo/micro/settings.json" "$HOME/.config/micro/settings.json"
+link "$repo/micro/colorschemes/cozy.micro" "$HOME/.config/micro/colorschemes/cozy.micro"
+
 # vim: the vimrc and the colorscheme that uses the terminal palette
 link "$repo/vim/vimrc" "$HOME/.vimrc"
 link "$repo/vim/colors/cozy.vim" "$HOME/.vim/colors/cozy.vim"

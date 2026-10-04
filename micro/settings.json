@@ -1,0 +1,9 @@
+{
+    "colorscheme": "cozy",
+    "tabsize": 4,
+    "tabstospaces": true,
+    "diffgutter": true,
+    "mkparents": true,
+    "saveundo": true,
+    "scrollbar": true
+}

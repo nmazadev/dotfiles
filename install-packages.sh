@@ -9,7 +9,7 @@ ensure_paru
 
 install() { run paru -S --needed "$@"; }
 
-install base-devel git xdg-utils xdg-user-dirs zsh pacman-contrib
+install base-devel git xdg-utils xdg-user-dirs zsh pacman-contrib micro vim
 
 # Desktop
 install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi

@@ -44,6 +44,12 @@ done
 
 run xdg-user-dirs-update
 
+# GTK4 apps and the portal read the theme from gsettings; a previous setup may have
+# left its own there. Adwaita + dark, with the colors coming from gtk-theme.sh
+for kv in "gtk-theme Adwaita" "icon-theme Adwaita" "color-scheme prefer-dark"; do
+    run gsettings set org.gnome.desktop.interface ${kv% *} "${kv#* }"
+done
+
 # wallpaper.sh picks images from here; the repo's wallpapers are copied in
 # (not linked) so you can add or remove your own freely
 run mkdir -p "$HOME/wallpapers"

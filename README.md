@@ -45,6 +45,28 @@ cd ~/dev/dotfiles
 
 Everything is safe to run again. When it finishes, log in to Hyprland: the repo's wallpaper is already in `~/wallpapers`, and you can drop more images there. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
 
+### Installing over an existing setup (e.g. meowrch)
+
+No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup-meowrch.sh` removes the old desktop afterwards.
+
+```sh
+./install-over.sh --dry-run   # see what it will do
+./install-over.sh             # snapshot, install, snapshot
+# reboot, log into Hyprland, check everything works, then:
+./cleanup-meowrch.sh --dry-run
+./cleanup-meowrch.sh          # lists everything and asks before removing
+```
+
+`install-over.sh`:
+1. Takes a read-only btrfs snapshot of `/` and `/home` **before** anything changes (`pre-dotfiles-<date>`, your fallback). Snapshots are instant and take no space at first; skipped if `/` isn't btrfs.
+2. Sets aside (`*.bak`) what would override this setup: a `~/.zshenv` that redirects zsh to `~/.config/zsh` (meowrch's does, so `~/.zshrc` would be ignored), meowrch's `environment.d` file and its UWSM folder. The old display manager (SDDM) is disabled in favour of lidm, and zsh becomes the login shell (replacing fish).
+3. Runs `bootstrap.sh`. Replaced configs are kept as `*.bak`.
+4. Takes a second snapshot **after** (`post-dotfiles-<date>`), a milestone of the working setup before the cleanup.
+
+`cleanup-meowrch.sh` removes only meowrch's desktop pieces (bspwm, polybar, rofi, dunst/swaync, SDDM, fish, starship, its theming tools, ...), its helper scripts and user services, and the `*.bak` copies of replaced configs. Apps you may use for work (Firefox, VS Code, Discord, LibreOffice, databases, ...) and app data such as `~/.config/Cursor` and `~/.cursor` are never touched.
+
+To get something back, copy it out of a snapshot (`cp -a /home/.snapshots/pre-dotfiles-<date>/$USER/.config/<dir> ~/.config/<dir>.old`). When you're happy, delete the snapshots with `sudo btrfs subvolume delete <path>`.
+
 ## 🧺 What's in the basket
 
 | Folder | What lives there |
@@ -55,6 +77,7 @@ Everything is safe to run again. When it finishes, log in to Hyprland: the repo'
 | `wofi/` | the `SUPER + A` app launcher: config and a theme-aware style |
 | `zsh/` | `zshrc`: oh-my-zsh (robbyrussell, autosuggestions, fast-syntax-highlighting), zoxide as `cd`, pywal colors, git aliases, `EDITOR=vim` |
 | `pacman/` | per-user `makepkg.conf`: AUR packages build on every CPU thread |
+| `micro/` | micro (for notes): settings and a `cozy` colorscheme from the terminal palette, so it follows the theme like vim |
 | `vim/` | `vimrc` and the `cozy` colorscheme, which follows the terminal palette so vim matches the theme |
 | `fastfetch/` | fastfetch config (OS, host, CPU, both GPUs, RAM, disk, every monitor with refresh rate, battery, uptime, now playing) and logos |
 | `wlogout/` | logout menu: layout, icons, style |
@@ -70,7 +93,7 @@ Everything is safe to run again. When it finishes, log in to Hyprland: the repo'
 `hyprland.lua` requires each file in order:
 
 - `vars.lua` terminal (`kitty`), file manager (`yazi`), launcher (`wofi --show drun`), main mod (`SUPER`)
-- `monitors.lua` laptop panel (eDP-1 1920x1080@240), plus a catch-all rule: any other monitor gets its best resolution at the highest refresh rate, placed to the right
+- `monitors.lua` laptop panel (eDP-1, native resolution at its highest refresh rate), plus a catch-all rule: any other monitor gets its best resolution at the highest refresh rate, placed to the right
 - `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24) and `vim` as the default `EDITOR`/`VISUAL`
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
 - `autostart.lua` starts `awww-daemon`, `mako`, `hypridle`, `media-inhibit.sh` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
@@ -220,7 +243,7 @@ sudo systemctl disable lidm && sudo systemctl enable getty@tty1
 
 ## 🧸 Machine-specific bits
 
-`hypr/monitors.lua` is written for my laptop. On other hardware, edit it for your panel; an unsupported mode makes Hyprland warn and fall back to the preferred one.
+`hypr/monitors.lua` picks each panel's native resolution at its highest refresh rate, so it works on different laptops as is. Pin a mode there (e.g. `"2560x1600@165"`) only if you want something else; an unsupported mode makes Hyprland warn and fall back to the preferred one.
 
 ## 📚 References
 

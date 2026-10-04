@@ -1,7 +1,8 @@
--- Laptop panel
+-- Laptop panel: native resolution at its highest refresh rate, so the same rule
+-- fits different panels (1080p@240 here, maybe 1600p on a newer model)
 hl.monitor({
     output = "eDP-1",
-    mode = "1920x1080@240",
+    mode = "highrr",
     position = "0x0",
     scale = 1,
 })

@@ -25,6 +25,13 @@ run sudo install -b -S .bak -m 644 "$repo/lidm/lidm.ini" /etc/lidm.ini
 unit=$(pacman -Ql "$service_provider" 2>/dev/null | awk '/\.service$/ { n = split($2, a, "/"); print a[n]; exit }' || true)
 unit=${unit:-lidm.service}
 
+# Another display manager (e.g. SDDM from a previous setup) would clash with lidm
+current_dm=$(readlink -f /etc/systemd/system/display-manager.service 2>/dev/null || true)
+if [[ -n $current_dm && $(basename "$current_dm") != "$unit" ]]; then
+    echo ":: disabling the current display manager: $(basename "$current_dm")"
+    run sudo systemctl disable "$(basename "$current_dm")"
+fi
+
 # lidm replaces the getty on tty1. Takes effect on the next boot, so the
 # current session is left alone.
 run sudo systemctl disable getty@tty1.service
