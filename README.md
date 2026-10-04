@@ -97,6 +97,7 @@ Workspaces and a taskbar on the left, the clock (with calendar) in the middle, t
 
 - **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `hypridle` `hyprlock` `awww` `yazi`
 - **Bindings:** `grimblast-git` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
+- **TUIs (waybar clicks open them in kitty):** `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
 - **Look:** JetBrains Mono (+ Nerd Font), `rose-pine-hyprcursor`, Noto fonts
 - **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`

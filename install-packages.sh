@@ -16,7 +16,7 @@ install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi
 
 # Helpers used by binds, waybar and the wallpaper script
 install grimblast-git brightnessctl playerctl python-pywal imagemagick jq libnotify \
-    btop bluetui cava pavucontrol network-manager-applet
+    btop bluetui cava pavucontrol glow fastfetch zoxide
 
 # Fonts and cursor
 install ttf-jetbrains-mono ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji rose-pine-hyprcursor
@@ -30,6 +30,11 @@ install xdg-desktop-portal-hyprland xdg-desktop-portal-gtk hyprpolkitagent qt6-w
 if has_gpu intel; then
     echo ":: Intel GPU detected"
     install mesa vulkan-intel intel-media-driver
+fi
+
+if has_gpu intel && has_gpu nvidia; then
+    # GPU mode switching (TUI front end for envycontrol)
+    install envycontrol envy-tui-bin
 fi
 
 if has_gpu nvidia; then
