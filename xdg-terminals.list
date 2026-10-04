@@ -1,0 +1,2 @@
+# Terminal used by xdg-terminal-exec (and so by app launchers / GTK for Terminal=true apps)
+kitty.desktop

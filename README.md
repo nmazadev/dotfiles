@@ -76,6 +76,7 @@ No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup
 | `waybar/` | the top bar, `launch.sh` restarts it |
 | `kitty/` | terminal, JetBrains Mono 12 pt |
 | `wofi/` | the `SUPER + A` app launcher: config and a theme-aware style |
+| `xdg-terminals.list` | makes `xdg-terminal-exec` (used by wofi/GTK for terminal apps like btop) open them in kitty instead of xterm |
 | `zsh/` | `zshrc`: oh-my-zsh (robbyrussell, autosuggestions, fast-syntax-highlighting), zoxide as `cd`, pywal colors, git aliases, `EDITOR=vim` |
 | `pacman/` | per-user `makepkg.conf`: AUR packages build on every CPU thread |
 | `micro/` | micro (for notes): settings and a `cozy` colorscheme from the terminal palette, so it follows the theme like vim |

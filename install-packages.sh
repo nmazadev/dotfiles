@@ -12,7 +12,7 @@ install() { run paru -S --needed "$@"; }
 install base-devel git xdg-utils xdg-user-dirs zsh pacman-contrib micro vim
 
 # Desktop
-install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi
+install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi xdg-terminal-exec
 
 # Helpers used by binds, waybar and the wallpaper script
 install grim slurp wl-clipboard satty brightnessctl playerctl python-pywal imagemagick jq libnotify mako \

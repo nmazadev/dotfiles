@@ -32,6 +32,9 @@ for f in gtk-3.0/settings.ini gtk-4.0/settings.ini; do
     link "$repo/$f" "$HOME/.config/$f"
 done
 
+# terminal apps launched from wofi/GTK (btop, yazi, ...) open in kitty, not xterm
+link "$repo/xdg-terminals.list" "$HOME/.config/xdg-terminals.list"
+
 # zsh, and faster AUR builds (MAKEFLAGS for makepkg/paru)
 link "$repo/zsh/zshrc" "$HOME/.zshrc"
 link "$repo/pacman/makepkg.conf" "$HOME/.config/pacman/makepkg.conf"
