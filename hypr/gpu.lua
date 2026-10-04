@@ -2,8 +2,8 @@
 -- hybrid Intel + NVIDIA laptops. Hybrid branch adapted from meowrch's gpu-env.lua.
 --
 --   Intel only : no overrides (Hyprland's auto-detection is right).
---   Hybrid     : the iGPU drives the compositor; the dGPU is only used per-app
---                via bin/prime-run.
+--   Hybrid     : Aquamarine auto-detects the primary GPU (no AQ_DRM_DEVICES,
+--                same as meowrch); GL/Vulkan default to the NVIDIA dGPU.
 --   Other      : no overrides (NVIDIA-only/AMD are not handled here).
 
 local function exists(path)
@@ -42,8 +42,10 @@ end
 local gpus = detect_gpus()
 
 if gpus.intel and gpus.nvidia then
-    -- Intel first so Hyprland renders on it.
-    hl.env("AQ_DRM_DEVICES", gpus.intel .. ":" .. gpus.nvidia)
+    -- Deliberately no AQ_DRM_DEVICES: forcing either GPU order broke HDMI
+    -- (wired to the dGPU) here; auto-detection is what meowrch relies on.
+    hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+    hl.env("VK_LAYER_NV_optimus", "1")
 
     -- Avoids cursor hitches on NVIDIA setups.
     hl.config({
@@ -56,7 +58,4 @@ if gpus.intel and gpus.nvidia then
     if exists("/usr/lib/dri/nvidia_drv_video.so") or exists("/usr/lib64/dri/nvidia_drv_video.so") then
         hl.env("NVD_BACKEND", "direct")
     end
-
-    -- Deliberately NOT set globally (would force every app onto the dGPU):
-    -- __GLX_VENDOR_LIBRARY_NAME, GBM_BACKEND, LIBVA_DRIVER_NAME, VK_LAYER_NV_optimus
 end
