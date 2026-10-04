@@ -50,6 +50,7 @@ Everything is safe to run again. When it finishes, log in to Hyprland: the repo'
 No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup-meowrch.sh` removes the old desktop afterwards.
 
 ```sh
+./snapshot.sh before-dotfiles # optional: a snapshot of / and /home right now
 ./install-over.sh --dry-run   # see what it will do
 ./install-over.sh             # snapshot, install, snapshot
 # reboot, log into Hyprland, check everything works, then:
@@ -65,7 +66,7 @@ No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup
 
 `cleanup-meowrch.sh` removes only meowrch's desktop pieces (bspwm, polybar, rofi, dunst/swaync, SDDM, fish, starship, its theming tools, ...), its helper scripts and user services, and the `*.bak` copies of replaced configs. Apps you may use for work (Firefox, VS Code, Discord, LibreOffice, databases, ...) and app data such as `~/.config/Cursor` and `~/.cursor` are never touched.
 
-To get something back, copy it out of a snapshot (`cp -a /home/.snapshots/pre-dotfiles-<date>/$USER/.config/<dir> ~/.config/<dir>.old`). When you're happy, delete the snapshots with `sudo btrfs subvolume delete <path>`.
+`snapshot.sh [label]` works on its own any time (`./snapshot.sh --list` shows them). To get something back, copy it out of a snapshot (`cp -a /home/.snapshots/pre-dotfiles-<date>/$USER/.config/<dir> ~/.config/<dir>.old`). When you're happy, delete the snapshots with `sudo btrfs subvolume delete <path>`.
 
 ## 🧺 What's in the basket
 

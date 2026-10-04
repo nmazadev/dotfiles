@@ -9,7 +9,6 @@ repo=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$repo/lib.sh"
 parse_args "$@"
 
-stamp=$(date +%Y-%m-%d_%H-%M)
 fstype() { findmnt -no FSTYPE --target "$1"; }
 
 echo ":: Current system"
@@ -21,27 +20,15 @@ for d in "$HOME/.config/Cursor" "$HOME/.cursor"; do
     [[ -e $d ]] && echo "   found $d (left untouched)"
 done
 
-# snapshot <label>: read-only btrfs snapshots of / and /home (separate subvolumes on
-# EndeavourOS, so each needs its own). Instant, and no extra space until files change.
-snapshots=()
-snapshot() {
-    local label=$1 mnt dir
-    [[ $(fstype /) == btrfs ]] || return 0
-    for mnt in / /home; do
-        [[ $(fstype "$mnt") == btrfs ]] || continue
-        dir="${mnt%/}/.snapshots"
-        run sudo mkdir -p "$dir"
-        run sudo btrfs subvolume snapshot -r "$mnt" "$dir/$label-$stamp"
-        snapshots+=("$dir/$label-$stamp")
-        # /home on the same subvolume as /: one snapshot covers both
-        if [[ $(findmnt -no SOURCE /home) == "$(findmnt -no SOURCE /)" ]]; then break; fi
-    done
-}
+# snapshots are taken by snapshot.sh (also usable on its own)
+btrfs_root=0
+[[ $(fstype /) == btrfs ]] && btrfs_root=1
+snapshot() { "$repo/snapshot.sh" "$@"; }
 
 # 1. fallback: how everything was before
-if [[ $(fstype /) == btrfs ]]; then
+if ((btrfs_root)); then
     echo ":: Snapshot before (fallback)"
-    snapshot pre-dotfiles
+    snapshot pre-dotfiles "$@"
 else
     echo ":: / is not btrfs, skipping snapshots (make a backup first if you need one)"
 fi
@@ -77,18 +64,20 @@ echo ":: Installing"
 "$repo/bootstrap.sh" "$@"
 
 # 4. milestone: the new setup, before anything of the old one is removed
-echo ":: Snapshot after (milestone)"
-snapshot post-dotfiles
+if ((btrfs_root)); then
+    echo ":: Snapshot after (milestone)"
+    snapshot post-dotfiles "$@"
+fi
 
 echo
 echo "Done. Reboot and pick the Hyprland session in lidm (zsh is now the login shell)."
 echo "Once it works, ./cleanup-meowrch.sh removes what meowrch left behind."
-if ((${#snapshots[@]})); then
+if ((btrfs_root)); then
     echo
     echo "Snapshots (pre = how it was, post = right after this install):"
-    printf '   %s\n' "${snapshots[@]}"
+    "$repo/snapshot.sh" --list
     echo "Restore a file or folder, e.g. an old config:"
-    echo "   cp -a /home/.snapshots/pre-dotfiles-$stamp/$USER/.config/hypr ~/.config/hypr.old"
+    echo "   cp -a /home/.snapshots/pre-dotfiles-<date>/$USER/.config/hypr ~/.config/hypr.old"
     echo "Delete them once you are happy:"
-    echo "   sudo btrfs subvolume delete ${snapshots[*]}"
+    echo "   sudo btrfs subvolume delete /.snapshots/<name> /home/.snapshots/<name>"
 fi
