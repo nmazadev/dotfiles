@@ -24,10 +24,10 @@ for p in "${candidates[@]}"; do
     pacman -Q "$p" >/dev/null 2>&1 && packages+=("$p")
 done
 
-# meowrch configs and home files
+# meowrch configs and home files (its yazi config also no longer parses with current yazi)
 paths=()
 for d in bspwm polybar rofi dunst swaync fish starship lsd mewline pawlette \
-         meowrch-code-theme betterlockscreen redshift xsettingsd X11 qt5ct tg-config; do
+         meowrch-code-theme betterlockscreen redshift xsettingsd X11 qt5ct tg-config yazi; do
     paths+=("$HOME/.config/$d")
 done
 paths+=("$HOME/.xinitrc" "$HOME/.xsession" "$HOME/.face.icon" "$HOME/.icons/default/index.theme")
