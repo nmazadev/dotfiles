@@ -13,7 +13,7 @@ Hyprland (Lua config) + Waybar on Arch, for Intel-only and hybrid Intel/NVIDIA l
   - `input.lua` `us` + `latam` keyboard layouts, 3-finger horizontal swipe to switch workspaces
   - `binds.lua` keybindings (see [Keybindings](#keybindings))
   - `hypridle.conf` / `hyprlock.conf` lock after 5 min, screen off after 6 min
-  - `scripts/wallpaper.sh` picks a wallpaper, recolors the setup with pywal, and restarts waybar
+  - `scripts/wallpaper.sh` picks a wallpaper, recolors the setup with pywal, and restarts waybar; it only reads your images and writes a blurred copy for wlogout
 - `waybar/` top bar with workspaces and a taskbar on the left, the clock (with calendar) in the centre, then a hardware group (CPU, temperature, disk, memory), audio, bluetooth, network, battery and an exit button. `launch.sh` restarts it.
 - `kitty/` terminal config (JetBrains Mono, 12 pt)
 - `wofi/` application launcher config and style
@@ -61,11 +61,12 @@ It links `hypr`, `waybar`, `kitty`, `wofi` and `wlogout` into `~/.config`, and e
 | `SUPER + SHIFT + P` | screenshot of an area |
 | `SUPER + ALT + P` | screenshot after 5 s |
 | `SUPER + CTRL + P` | screenshot including the cursor |
+| `ALT + SHIFT` | switch keyboard layout (`us` / `latam`) |
 | `CTRL + SHIFT + R` | reload the Hyprland config |
 | `SUPER + Delete` | exit Hyprland |
 | media keys | volume, mic mute, playback, brightness |
 
-`SHIFT + ALT` switches keyboard layout, but the command targets my `steelseries-steelseries-klc` keyboard by name; change it in `hypr/binds.lua` for yours.
+Layout switching is handled by XKB (`kb_options = "grp:alt_shift_toggle"` in `hypr/input.lua`), not by a bind, so it works with any keyboard.
 
 ## GPU notes
 `hypr/gpu.lua` detects the GPUs from `/sys/class/drm` at startup, so nothing needs editing per machine.
@@ -77,4 +78,3 @@ The hybrid branch is adapted from [meowrch's gpu-env.lua](https://github.com/meo
 
 ## Machine-specific parts
 - `hypr/monitors.lua` is written for my laptop. On other hardware, edit it for your panel; an unsupported mode makes Hyprland warn and fall back to the preferred one. The old hyprmon-generated `monitors.conf` is not used.
-- The keyboard-layout bind (above).

@@ -35,9 +35,6 @@ case $1 in
     ;;
 esac
 
-# new wallpaper name
-new_wp=$(echo $wallpaper | sed "s|$HOME/wallpapers/||g")
-
 # launch waybar based on new wallpaper colors
 source "$HOME/.cache/wal/colors.sh"
 ~/.config/waybar/launch.sh
@@ -51,15 +48,15 @@ transition_type="grow"
 #transition_type="wipe"
 # transition_type="random"
 
-awww img $wallpaper \
-    --transition-type=$transition_type \
+awww img "$wallpaper" \
+    --transition-type="$transition_type" \
     --transition-pos top-right
 
-# create blurred wallpaper (for wlogout)
-magick $wallpaper -resize 1920x1080\! $wallpaper
-echo ":: Resized"
+# create blurred wallpaper (for wlogout), cropped to fill the screen.
+# The original image is never modified.
 if [ ! "$blur" == "0x0" ] ; then
-    magick $wallpaper -blur $blur $blurred_wp
+    magick "$wallpaper" -resize '1920x1080^' -gravity center -extent 1920x1080 \
+        -blur "$blur" "$blurred_wp"
     echo ":: Blurred"
 fi
 

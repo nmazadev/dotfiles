@@ -81,9 +81,6 @@ hl.bind(mod .. " + CTRL + right", hl.dsp.focus({ workspace = "r+1" }), { descrip
 hl.bind(mod .. " + CTRL + left", hl.dsp.focus({ workspace = "r-1" }), { description = "Previous workspace" })
 hl.bind(mod .. " + CTRL + down", hl.dsp.focus({ workspace = "empty" }), { description = "First empty workspace" })
 
--- Input
-hl.bind("SHIFT + ALT", hl.dsp.exec_cmd("hyprctl switchxkblayout steelseries-steelseries-klc next"), { description = "Toggle keyboard layout" })
-
 -- Move windows
 hl.bind(mod .. " + SHIFT + CTRL + right", hl.dsp.window.move({ direction = "right" }), { description = "Move window right" })
 hl.bind(mod .. " + SHIFT + CTRL + left", hl.dsp.window.move({ direction = "left" }), { description = "Move window left" })
