@@ -1,0 +1,11 @@
+#!/bin/sh
+# Run a program on the NVIDIA dGPU (PRIME render offload). Usage: prime-run <cmd> [args]
+# Without an NVIDIA GPU (e.g. Intel-only laptops) the command runs normally.
+if [ -e /dev/nvidiactl ]; then
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+else
+    echo "prime-run: no NVIDIA GPU found, running without offload" >&2
+fi
+exec "$@"

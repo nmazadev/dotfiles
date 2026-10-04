@@ -1,0 +1,4 @@
+.mimocode/
+*.bak
+hypr/monitors.json
+node_modules/

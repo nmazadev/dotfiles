@@ -1,0 +1,8 @@
+require("vars")
+require("monitors")
+require("env")
+require("gpu")
+require("autostart")
+require("looks")
+require("input")
+require("binds")
