@@ -44,6 +44,7 @@ else
 fi
 
 echo "$choice" > "$state"
+"$HOME/.config/hypr/scripts/gtk-theme.sh"
 
 # --no-reload is for callers that restart waybar and mako themselves
 [[ " $* " == *" --no-reload "* ]] && exit 0

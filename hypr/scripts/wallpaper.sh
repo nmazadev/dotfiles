@@ -39,6 +39,7 @@ fi
 # colors: pywal derives them from the image, fixed themes reapply their palette
 if [ "$theme" = "pywal" ]; then
     wal -n -q -i "$wallpaper"
+    "$HOME/.config/hypr/scripts/gtk-theme.sh"
 else
     "$HOME/.config/hypr/scripts/theme.sh" "$theme" --no-reload
 fi

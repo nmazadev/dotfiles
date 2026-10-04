@@ -54,6 +54,7 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 | `kitty/` | terminal, JetBrains Mono 12 pt |
 | `wofi/` | app launcher config and style |
 | `wlogout/` | logout menu: layout, icons, style |
+| `gtk-3.0/`, `gtk-4.0/` | GTK settings and extra styling for pavucontrol, blueman and other GTK apps |
 | `mako/` | notification daemon, colored by pywal |
 | `wal/` | `colorschemes/` (the fixed palettes) and `templates/` (pywal templates, so far the mako colors) |
 | `bin/` | helper scripts, linked into `~/.local/bin` |
@@ -84,7 +85,7 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 Workspaces and a taskbar on the left, the clock in the middle (long format with the day and month, click for the short one, hover for the calendar), then a Spotify
 now-playing pill (title plus previous / play-pause / next buttons, hidden while Spotify is closed), a hardware group
 (CPU, temperature, disk, memory), audio, bluetooth, network, battery and an exit button.
-Clicks open TUIs in kitty: `btop` for the hardware modules, `bluetui` for bluetooth, `nmtui` for network.
+Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio, `bluetui` for bluetooth, `nmtui` for network.
 
 </details>
 
@@ -102,7 +103,7 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `bluetui` for blueto
 - **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `mako` `hypridle` `hyprlock` `awww` `yazi`
 - **Music:** `spotify`, shown in waybar via its mpris module
 - **Bindings:** `grimblast-git` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
-- **TUIs (waybar clicks open them in kitty):** `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
+- **TUIs (waybar clicks open them in kitty):** `wiremix` (audio), `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
 - **Look:** JetBrains Mono (+ Nerd Font), Noto fonts, `adwaita-icon-theme`, `rose-pine-hyprcursor`
 - **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`
@@ -163,11 +164,12 @@ Layout switching is done by XKB (`grp:alt_shift_toggle` in `hypr/input.lua`), no
 ## 🎨 Themes
 
 Every color on the desktop comes from pywal's cache (`~/.cache/wal`), so a theme is just a palette that pywal applies:
-waybar, wofi, wlogout, mako, hyprlock, kitty and cava all follow it.
+waybar, wofi, wlogout, mako, hyprlock, kitty, cava, the focused-window outline and the GTK apps (pavucontrol, blueman) all follow it.
 
 - Fixed palettes live in `wal/colorschemes/*.json` (`cocoa`, `rose-pine-moon`, `gruvbox`, `nord`), linked by `install.sh`. The `cursor` color is the accent used for the clock, exit button and notification borders.
 - `pywal` derives the colors from the current wallpaper instead.
 - `hypr/scripts/theme.sh [name|next]` applies one (no argument opens a wofi menu) and remembers it in `~/.cache/wal/theme`; `SUPER + W` keeps the chosen theme and only changes the wallpaper, unless it is `pywal`.
+- GTK apps are themed by `gtk-3.0/` and `gtk-4.0/`: `hypr/scripts/gtk-theme.sh` writes `~/.config/gtk-*/gtk.css` from the theme colors plus each folder's `extra.css`, and `settings.ini` sets dark mode and the font. Reopen an app to see a theme change.
 - To add a palette, copy a file in `wal/colorschemes/`, change the colors and run `./install.sh`.
 
 ## 🎮 GPU notes

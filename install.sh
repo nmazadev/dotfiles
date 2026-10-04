@@ -29,6 +29,11 @@ for dir in hypr waybar kitty wofi wlogout mako; do
     link "$repo/$dir" "$HOME/.config/$dir"
 done
 
+# GTK apps (pavucontrol, blueman): link the settings only; gtk.css is built by gtk-theme.sh
+for f in gtk-3.0/settings.ini gtk-4.0/settings.ini; do
+    link "$repo/$f" "$HOME/.config/$f"
+done
+
 # pywal templates: link the files only, ~/.config/wal/templates may hold others
 for tpl in "$repo"/wal/templates/*; do
     link "$tpl" "$HOME/.config/wal/templates/$(basename "$tpl")"

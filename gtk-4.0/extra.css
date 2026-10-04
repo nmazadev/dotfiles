@@ -1,0 +1,29 @@
+/* Extra GTK styling, appended to the theme colors by hypr/scripts/gtk-theme.sh */
+
+/* softer, rounder, to match waybar and mako */
+button, entry, spinbutton, combobox, .menu, popover > contents, menu {
+    border-radius: 10px;
+}
+
+headerbar {
+    box-shadow: none;
+    border-bottom: 1px solid @borders;
+}
+
+/* accent color on selections, sliders, progress and toggles */
+*:selected, row:selected, .view:selected, listview > row:selected, modelbutton:hover,
+button.suggested-action {
+    background-color: @wal_accent;
+    color: @wal_bg;
+}
+
+scale highlight, progressbar progress, levelbar block.filled, switch:checked,
+check:checked, radio:checked {
+    background-color: @wal_accent;
+    background-image: none;
+    border-color: @wal_accent;
+}
+
+tabs > tab:checked, notebook > header > tabs > tab:checked {
+    box-shadow: inset 0 -2px @wal_accent;
+}
