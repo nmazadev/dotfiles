@@ -18,8 +18,8 @@ install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi
 install grimblast-git brightnessctl playerctl python-pywal imagemagick jq libnotify \
     btop bluetui cava pavucontrol glow fastfetch zoxide
 
-# Fonts and cursor
-install ttf-jetbrains-mono ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji rose-pine-hyprcursor
+# Fonts, icons and cursor
+install ttf-jetbrains-mono ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji adwaita-icon-theme rose-pine-hyprcursor
 
 # Audio, bluetooth, network
 install pipewire pipewire-pulse pipewire-alsa wireplumber bluez bluez-utils networkmanager

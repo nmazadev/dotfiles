@@ -99,7 +99,7 @@ Workspaces and a taskbar on the left, the clock (with calendar) in the middle, t
 - **Bindings:** `grimblast-git` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
 - **TUIs (waybar clicks open them in kitty):** `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
-- **Look:** JetBrains Mono (+ Nerd Font), `rose-pine-hyprcursor`, Noto fonts
+- **Look:** JetBrains Mono (+ Nerd Font), Noto fonts, `adwaita-icon-theme`, `rose-pine-hyprcursor`
 - **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`
 - **GPU (detected):** `mesa` `vulkan-intel` `intel-media-driver`, and `nvidia-open` `nvidia-utils` `egl-wayland` `libva-nvidia-driver`
 - **Login manager:** `lidm` and `lidm-systemd` from the AUR
