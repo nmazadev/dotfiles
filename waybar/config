@@ -12,12 +12,13 @@
 	
 	// general settings
 	"position": "top",
-	"margin-top": 8,
+	"height": 26,
+	"margin-top": 6,
 	"margin-bottom": 0,
 	"layer": "top",
-	"margin-left": 8,
-	"margin-right": 8,    
-	"spacing": 10,
+	"margin-left": 6,
+	"margin-right": 6,
+	"spacing": 6,
 	"fixed-center": true,
 	"exclusive": true,
 	

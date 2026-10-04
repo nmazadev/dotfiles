@@ -1,48 +1,55 @@
-#!/bin/bash                                                       
+#!/bin/bash
 #   _ _ _ _____ __    __    _____ _____ _____ _____ _____ 
 #  | | | |  _  |  |  |  |  |  _  |  _  |  _  |   __| __  |
 #  | | | |     |  |__|  |__|   __|     |   __|   __|    -|
 #  |_____|__|__|_____|_____|__|  |__|__|__|  |_____|__|__|
 #
 #  by Bina
-
+#
+# Usage: wallpaper.sh [init]
+#   (none) set a random wallpaper
+#   init   re-apply the saved wallpaper and theme (called at login)
+# With the pywal theme the colors follow the wallpaper; with a fixed theme
+# (see theme.sh) only the wallpaper changes.
 
 current_wp="$HOME/wallpapers/current_wallpaper"
 blurred_wp="$HOME/wallpapers/current_wallpaper_blurred.png"
 blur="50x30"
+theme=$(cat "$HOME/.cache/wal/theme" 2>/dev/null || echo cocoa)
 
-# write path to wp into file
-if [ ! -f $current_wp ]; then
-    touch $current_wp
-    echo "$HOME/wallpapers/default.png" > "$current_wp"
+images() {
+    find "$HOME/wallpapers" -maxdepth 1 -type f \
+        \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) \
+        ! -name "current_wallpaper*"
+}
+
+# select the wallpaper
+saved=$(cat "$current_wp" 2>/dev/null)
+if [ "$1" = "init" ] && [ -f "$saved" ]; then
+    wallpaper="$saved"
+else
+    wallpaper=$(images | shuf -n 1)
 fi
 
-# current wallpaper path
-current_wallpaper=$(cat "$current_wp")
+if [ ! -f "$wallpaper" ]; then
+    notify-send "No wallpapers" "Put images in ~/wallpapers"
+    exit 1
+fi
 
-# select new wallpaper
-case $1 in
-    "init")
-        if [ -f "$current_wallpaper" ]; then
-            wal -q -i "$current_wallpaper"
-        else
-            wal -q -i ~/wallpapers/
-        fi
-    ;;
-    # random wallpaper
-    *)
-        wal -q -i ~/wallpapers/
-    ;;
-esac
+# colors: pywal derives them from the image, fixed themes reapply their palette
+if [ "$theme" = "pywal" ]; then
+    wal -n -q -i "$wallpaper"
+else
+    "$HOME/.config/hypr/scripts/theme.sh" "$theme" --no-reload
+fi
 
-# launch waybar based on new wallpaper colors
-source "$HOME/.cache/wal/colors.sh"
+# launch waybar with the fresh colors
 ~/.config/waybar/launch.sh
 
 # notifications pick up the new colors
 makoctl reload 2>/dev/null
 
-# update soft link to cava colors based on wallpaper colors
+# update soft link to cava colors based on the theme colors
 # (cava needs to manually be restarted)
 ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config"
 
@@ -65,6 +72,3 @@ fi
 
 # update current wallpaper file
 echo "$wallpaper" > "$current_wp"
-
-
-

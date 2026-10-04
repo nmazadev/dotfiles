@@ -34,6 +34,11 @@ for tpl in "$repo"/wal/templates/*; do
     link "$tpl" "$HOME/.config/wal/templates/$(basename "$tpl")"
 done
 
+# fixed color themes for theme.sh
+for scheme in "$repo"/wal/colorschemes/*; do
+    link "$scheme" "$HOME/.config/wal/colorschemes/$(basename "$scheme")"
+done
+
 for script in "$repo"/bin/*; do
     link "$script" "$HOME/.local/bin/$(basename "$script")"
 done

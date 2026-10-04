@@ -16,6 +16,8 @@ hl.bind(mod .. " + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 hl.bind(mod .. " + W", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh"))
 
 hl.bind(mod .. " + M", hl.dsp.exec_cmd("wlogout -b 2"))
+hl.bind(mod .. " + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh"))
+hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh next"))
 
 for i = 1, 10 do
     local key = i % 10

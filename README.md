@@ -19,9 +19,8 @@ Made for Intel-only and hybrid Intel + NVIDIA laptops.
 
 ## ✨ The vibe
 
-Soft rounded corners, slightly see-through windows (0.92), no borders, no blur, gentle animations.
-Press `SUPER + W` and a new wallpaper arrives, and pywal repaints the bar, the terminal and the
-launcher to match. Rose Pine cursor, JetBrains Mono everywhere.
+Compact and cozy: a slim 26 px bar, soft rounded corners, slightly see-through windows (0.95), tight 6 px gaps, no borders, no blur, gentle animations.
+The default palette is **cocoa** (cream on warm brown, terracotta and amber accents). `SUPER + T` opens a theme menu and `SUPER + SHIFT + T` cycles: `cocoa`, `rose-pine-moon`, `gruvbox`, `nord`, or `pywal`, where the colors follow the wallpaper. Rose Pine cursor, JetBrains Mono everywhere.
 
 ## 🚀 Quick start
 
@@ -56,7 +55,7 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 | `wofi/` | app launcher config and style |
 | `wlogout/` | logout menu: layout, icons, style |
 | `mako/` | notification daemon, colored by pywal |
-| `wal/templates/` | pywal templates (so far the mako colors) |
+| `wal/` | `colorschemes/` (the fixed palettes) and `templates/` (pywal templates, so far the mako colors) |
 | `bin/` | helper scripts, linked into `~/.local/bin` |
 
 <details>
@@ -73,6 +72,7 @@ Everything is safe to run again. When it finishes, drop at least one image in `~
 - `input.lua` `us` + `latam` layouts, 3-finger swipe to change workspace
 - `binds.lua` keybindings, see [Keybindings](#-keybindings)
 - `hypridle.conf` / `hyprlock.conf` lock after 5 min, screen off after 6 min
+- `scripts/theme.sh` switches the color theme (see Themes below)
 - `scripts/wallpaper.sh` picks a wallpaper, recolors with pywal, restarts waybar and reloads mako. It only reads your images and writes a blurred copy for wlogout
 - `scripts/monitor-hotplug.sh` extends (never mirrors) new monitors, re-applies the wallpaper and relaunches waybar
 
@@ -120,7 +120,8 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `bluetui` for blueto
 | `SUPER + Return` | terminal |
 | `SUPER + A` | app launcher |
 | `SUPER + M` | logout menu |
-| `SUPER + W` | new wallpaper and colors |
+| `SUPER + W` | new wallpaper (and new colors with the pywal theme) |
+| `SUPER + T` / `SUPER + SHIFT + T` | theme menu / next theme |
 | `SUPER + B` / `SUPER + SHIFT + B` | toggle / restart waybar |
 | `ALT + SHIFT` | switch layout (`us` / `latam`) |
 | `CTRL + SHIFT + R` | reload Hyprland config |
@@ -158,6 +159,16 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `bluetui` for blueto
 
 Media keys handle volume, mic mute, playback and brightness.
 Layout switching is done by XKB (`grp:alt_shift_toggle` in `hypr/input.lua`), not a bind, so it works with any keyboard.
+
+## 🎨 Themes
+
+Every color on the desktop comes from pywal's cache (`~/.cache/wal`), so a theme is just a palette that pywal applies:
+waybar, wofi, wlogout, mako, hyprlock, kitty and cava all follow it.
+
+- Fixed palettes live in `wal/colorschemes/*.json` (`cocoa`, `rose-pine-moon`, `gruvbox`, `nord`), linked by `install.sh`. The `cursor` color is the accent used for the clock, exit button and notification borders.
+- `pywal` derives the colors from the current wallpaper instead.
+- `hypr/scripts/theme.sh [name|next]` applies one (no argument opens a wofi menu) and remembers it in `~/.cache/wal/theme`; `SUPER + W` keeps the chosen theme and only changes the wallpaper, unless it is `pywal`.
+- To add a palette, copy a file in `wal/colorschemes/`, change the colors and run `./install.sh`.
 
 ## 🎮 GPU notes
 

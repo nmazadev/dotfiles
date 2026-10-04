@@ -1,4 +1,4 @@
 background-color={background}E6
 text-color={foreground}
-border-color={color4}
-progress-color=over {color2}
+border-color={cursor}
+progress-color=over {color3}

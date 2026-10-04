@@ -13,5 +13,9 @@ if find "$HOME/wallpapers" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jp
     "$HOME/.config/hypr/scripts/wallpaper.sh" init
 else
     notify-send "No wallpapers" "Put images in ~/wallpapers and press SUPER+W"
+    # still generate the theme colors waybar needs
+    theme=$(cat "$HOME/.cache/wal/theme" 2>/dev/null || echo cocoa)
+    [ "$theme" = "pywal" ] && theme=cocoa
+    "$HOME/.config/hypr/scripts/theme.sh" "$theme" --no-reload
     "$HOME/.config/waybar/launch.sh"
 fi
