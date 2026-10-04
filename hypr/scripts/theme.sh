@@ -51,5 +51,6 @@ echo "$choice" > "$state"
 
 "$HOME/.config/waybar/launch.sh"
 makoctl reload 2>/dev/null
+pkill -USR2 -x btop 2>/dev/null   # btop reloads its config and theme
 hyprctl reload >/dev/null 2>&1
 notify-send "Theme" "$choice"
