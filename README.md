@@ -41,7 +41,7 @@ cd ~/dev/dotfiles
 | `install-packages.sh` | every package the setup needs, plus Intel and NVIDIA drivers when those GPUs are detected |
 | `install-services.sh` | enables NetworkManager, bluetooth, pipewire and the polkit agent, creates `~/wallpapers` |
 | `install.sh` | links `hypr`, `waybar`, `kitty`, `wofi`, `wlogout` and `mako` into `~/.config`, the pywal templates into `~/.config/wal/templates` and `bin/` into `~/.local/bin`; existing configs are moved to `*.bak` |
-| `install-extras.sh` | the lidm login manager and its theme |
+| `install-extras.sh` | optional apps (`tlock`, `xleak-bin`, `tabiew`, `spotify`, `onlyoffice-bin`) and the lidm login manager with its theme |
 
 Everything is safe to run again. When it finishes, drop at least one image in `~/wallpapers` and log in to Hyprland. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
 
@@ -101,14 +101,13 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 `install-packages.sh` installs all of these:
 
 - **Core:** `hyprland` `waybar` `kitty` `wofi` `wlogout` `mako` `hypridle` `hyprlock` `awww` `yazi`
-- **Music:** `spotify`, shown in waybar via its mpris module
 - **Bindings:** `grimblast-git` (screenshots), `brightnessctl`, `playerctl`, `wireplumber` (`wpctl`)
 - **TUIs (waybar clicks open them in kitty):** `wiremix` (audio), `bluetui`, `nmtui` (comes with NetworkManager), `btop`, plus `glow`, `yazi`, `fastfetch`, `zoxide`, and `envy-tui-bin` + `envycontrol` on hybrid laptops
 - **Wallpapers:** `python-pywal` (`wal`) and `imagemagick`. Put your images in `~/wallpapers/`
 - **Look:** JetBrains Mono (+ Nerd Font), Noto fonts, `adwaita-icon-theme`, `rose-pine-hyprcursor`
 - **System:** pipewire, bluez, NetworkManager, xdg portals, `hyprpolkitagent`
 - **GPU (detected):** `mesa` `vulkan-intel` `intel-media-driver`, and `nvidia-open` `nvidia-utils` `egl-wayland` `libva-nvidia-driver`
-- **Login manager:** `lidm` and `lidm-systemd` from the AUR
+- **Extras (`install-extras.sh`):** `tlock` (2FA tokens TUI), `xleak-bin` (Excel viewer TUI), `tabiew` (CSV viewer TUI), `spotify` (shown in waybar through its mpris module), `onlyoffice-bin`, and the login manager `lidm` + `lidm-systemd` from the AUR
 
 ## ⌨️ Keybindings
 

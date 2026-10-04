@@ -16,7 +16,7 @@ install hyprland hypridle hyprlock waybar kitty wofi wlogout awww yazi
 
 # Helpers used by binds, waybar and the wallpaper script
 install grimblast-git brightnessctl playerctl python-pywal imagemagick jq libnotify mako \
-    btop bluetui wiremix blueman cava pavucontrol glow fastfetch zoxide spotify
+    btop bluetui wiremix blueman cava pavucontrol glow fastfetch zoxide
 
 # Fonts, icons and cursor
 install ttf-jetbrains-mono ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji adwaita-icon-theme rose-pine-hyprcursor

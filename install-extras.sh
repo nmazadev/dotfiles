@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
-# Install the lidm login manager (AUR via paru), its theme, and enable it.
+# Install the optional extras (AUR via paru): apps and the lidm login manager with its theme.
 # Usage: ./install-extras.sh [--dry-run]
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 parse_args "$@"
 require_paru
+
+# Apps: tlock (2FA tokens TUI), xleak (Excel viewer TUI), tabiew (CSV viewer TUI),
+# spotify (shown in waybar), onlyoffice
+run paru -S --needed tlock xleak-bin tabiew spotify onlyoffice-bin
 
 # lidm needs a service provider; EndeavourOS uses systemd. It is installed
 # first so paru never asks which provider of lidm-service to use.
