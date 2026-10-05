@@ -7,7 +7,13 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 parse_args "$@"
 ensure_paru
 
-install() { run paru -S --needed "$@"; }
+# --needed skips packages that are already there, but those may be installed only as
+# another package's dependency (e.g. by a previous setup) and get removed together
+# with it later (cleanup-meowrch.sh lost grim that way). Mark them explicit.
+install() {
+    run paru -S --needed "$@"
+    run sudo pacman -D --asexplicit "$@" || true
+}
 
 install base-devel git xdg-utils xdg-user-dirs zsh pacman-contrib micro vim
 
