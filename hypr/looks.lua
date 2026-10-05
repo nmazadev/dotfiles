@@ -13,6 +13,11 @@ hl.config({
             inactive_border = "rgba(" .. colors.muted .. "33)",
         },
         layout = "dwindle",
+        -- drag any window's border (or the gap next to it) to resize it, not only
+        -- apps that draw their own resize edges
+        resize_on_border = true,
+        extend_border_grab_area = 12,
+        hover_icon_on_border = true,
         allow_tearing = false,
     },
 

@@ -174,7 +174,9 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 | `SUPER + arrows` | move focus |
 | `SUPER + SHIFT + arrows` | resize |
 | `SUPER + SHIFT + CTRL + arrows` | move window |
-| `SUPER + left mouse` / `+ SHIFT` | drag / resize |
+| `SUPER + left mouse` | drag a window |
+| `SUPER + right mouse` (or `SUPER + SHIFT + left mouse`) | resize a window |
+| drag a window border | resize it (any window) |
 
 **Workspaces**
 
