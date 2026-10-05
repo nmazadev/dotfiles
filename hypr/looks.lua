@@ -48,6 +48,11 @@ hl.config({
     misc = {
         force_default_wallpaper = 0,
         disable_hyprland_logo = true,
+        -- any key or mouse movement turns the screens back on after they went off,
+        -- instead of relying only on hypridle's on-resume command (when that one
+        -- misfired the screen stayed black while the session kept running)
+        key_press_enables_dpms = true,
+        mouse_move_enables_dpms = true,
     },
 })
 
