@@ -8,19 +8,14 @@
 
 {
 	// workspaces
-	"hyprland/workspaces" : {
+	// Workspaces through the ext-workspace protocol: clicking a number switches to it.
+	// (hyprland/workspaces sends the old "dispatch workspace N" IPC command on click,
+	// which the Lua config rejects, so clicks did nothing.)
+	"ext/workspaces": {
+		"format": "{name}",
 		"on-click": "activate",
-		"active-only": false,
-		"all-outputs": true,
-		"format": "{}",
-		"format-icons": {
-			"urgent": "",
-			"active": "",
-			"default": ""
-		},
-		"persistent-workspaces": {
-			"*": 8
-		},
+		"sort-by-id": true,
+		"ignore-hidden": true
 	},
    	
 	// clock
@@ -199,7 +194,11 @@
 		"format": "{icon} {capacity}%",
 		"format-charging": " {capacity}%",
 		"format-plugged": " {capacity}%",
-		"format-icons": ["", "", "", "", ""]
+		"format-icons": ["", "", "", "", ""],
+		// power profiles: click for the picker, right-click to cycle
+		"tooltip-format": "{timeTo}\nClick: power profile · right-click: next",
+		"on-click": "~/.config/hypr/scripts/power-profile.sh",
+		"on-click-right": "~/.config/hypr/scripts/power-profile.sh next"
 	},
 	
 	// do not disturb: click to silence notifications (mako mode), icon shows the state
