@@ -99,7 +99,7 @@ No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup
 - `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24) and `vim` as the default `EDITOR`/`VISUAL`, Wayland-first hints for Electron (`ELECTRON_OZONE_PLATFORM_HINT=auto`) and Qt (`QT_QPA_PLATFORM=wayland;xcb`)
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
 - `autostart.lua` starts `awww-daemon`, `mako`, `hypridle`, `media-inhibit.sh` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
-- `looks.lua` dwindle layout, 3/6 px gaps, 12 px rounded corners, 0.95 opacity, a 2 px accent outline on the focused window (faint on the rest), blur off, animations
+- `looks.lua` dwindle layout, 3/6 px gaps, 12 px rounded corners, 0.95 opacity (Firefox stays fully opaque for videos), a 2 px accent outline on the focused window (faint on the rest), blur off, animations
 - `input.lua` `us` + `latam` layouts, 3-finger swipe to change workspace
 - `binds.lua` keybindings, see [Keybindings](#-keybindings)
 - `hypridle.conf` / `hyprlock.conf` dim at 4.5 min, lock at 5 min, screens off at 6 min, and lock before suspend. Nothing happens while media plays: `scripts/media-inhibit.sh` holds an idle inhibitor whenever an app plays audio (music, video) or records the mic (Discord, meetings)

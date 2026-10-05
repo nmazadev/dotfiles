@@ -77,3 +77,10 @@ hl.window_rule({
     center = true,
     opacity = "1.0 override 1.0 override",
 })
+
+-- Firefox fully opaque: videos and pages look wrong with the window translucency
+hl.window_rule({
+    name = "firefox-opaque",
+    match = { class = "^(firefox)$" },
+    opacity = "1.0 override 1.0 override",
+})
