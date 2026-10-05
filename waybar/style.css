@@ -151,7 +151,7 @@ tooltip label {
 }
 
 /* audio */
-#pulseaudio {
+#pulseaudio, #backlight {
     background-color: @set;
     font-size: 13px;
     color: @text;

@@ -37,6 +37,7 @@
            "group/hardware",
            "hyprland/language",
            "pulseaudio",
+           "backlight",
            "bluetooth",
            "network",
            "battery",

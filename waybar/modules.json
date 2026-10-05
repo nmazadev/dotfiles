@@ -159,6 +159,16 @@
 		"on-click": "kitty wiremix"
 	},
 	
+	// screen brightness: scroll to change it (same as the brightness keys)
+	"backlight": {
+		"format": "{icon} {percent}%",
+		"format-icons": ["󰃞", "󰃟", "󰃠"],
+		"tooltip-format": "Brightness {percent}%\nScroll to change",
+		"on-scroll-up": "brightnessctl set +5%",
+		"on-scroll-down": "brightnessctl set 5%-",
+		"scroll-step": 5
+	},
+
 	// bluetooth
 	"bluetooth": {
 		"format": " {status}",
