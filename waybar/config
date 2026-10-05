@@ -25,7 +25,8 @@
 	// modules
 	"modules-left": [
 	    "group/systray",
-	    "ext/workspaces"
+	    "ext/workspaces",
+	    "group/media"
         ],
         
         "modules-center": [
@@ -33,7 +34,6 @@
         ],
         
        "modules-right": [
-           "group/media",
            "group/hardware",
            "hyprland/language",
            "pulseaudio",

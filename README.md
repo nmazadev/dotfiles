@@ -114,8 +114,7 @@ No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup
 <details>
 <summary><b>📊 Inside <code>waybar/</code></b></summary>
 
-On the left the system tray, folded behind a small arrow (click it to show the icons; right-click an icon for the app's menu, e.g. to quit Discord or Slack), then the workspaces (click one to switch; they use waybar's `ext/workspaces` module, since the Hyprland one sends a click command the Lua config rejects); the clock in the middle (long format with the day and month, click for the short one, hover for the calendar), then a Spotify
-now-playing pill (title plus previous / play-pause / next buttons, hidden while Spotify is closed), a hardware group
+On the left the system tray, folded behind a small arrow (click it to show the icons; right-click an icon for the app's menu, e.g. to quit Discord or Slack), then the workspaces (click one to switch; they use waybar's `ext/workspaces` module, since the Hyprland one sends a click command the Lua config rejects), then a Spotify now-playing pill (title plus previous / play-pause / next buttons, hidden while Spotify is closed); the clock in the middle (long format with the day and month, click for the short one, hover for the calendar); on the right a hardware group
 (CPU, temperature, disk, memory), the keyboard layout (click to switch), audio, screen brightness (scroll to change), bluetooth, network, battery (click for the power profile picker: performance / balanced / power-saver; right-click cycles), a do-not-disturb bell (click it or `SUPER + N` to silence notifications), and an exit button.
 Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio, `bluetui` for bluetooth, `nmtui` for network.
 
