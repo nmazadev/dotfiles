@@ -160,7 +160,7 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 | `SUPER + T` / `SUPER + SHIFT + T` | theme menu / next theme |
 | `SUPER + B` / `SUPER + SHIFT + B` | toggle / restart waybar |
 | `ALT + SHIFT` | switch layout (`us` / `latam`), shown in waybar |
-| `CTRL + SHIFT + R` | reload Hyprland config |
+| `SUPER + SHIFT + R` | reload Hyprland config |
 | `SUPER + Delete` | exit Hyprland |
 
 **Windows**

@@ -73,7 +73,7 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 2%-"), { des
 -- HYPRLAND
 -- Session actions
 hl.bind(mod .. " + Delete", hl.dsp.exit(), { description = "Exit Hyprland" })
-hl.bind("CTRL + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"), { description = "Reload Hyprland config" })
+hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"), { description = "Reload Hyprland config" })
 
 -- Window actions
 hl.bind(mod .. " + k", hl.dsp.window.kill(), { description = "Kill window" })
