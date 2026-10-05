@@ -94,6 +94,7 @@
 	"group/media": {
 		"orientation": "inherit",
 		"modules": [
+			"image#cover",
 			"mpris",
 			"custom/media-prev",
 			"custom/media-toggle",
@@ -116,6 +117,18 @@
 	"custom/media-next": {
 		"exec": "playerctl -p spotify --follow status 2>/dev/null | while read -r s; do case $s in Playing|Paused|Stopped) echo 󰒭;; *) echo;; esac; done",
 		"on-click": "playerctl -p spotify next",
+		"tooltip": false
+	},
+
+	// album art, downloaded by hypr/scripts/media-cover.sh (hidden when there's none)
+	"image#cover": {
+		"exec": "f=$HOME/.cache/media-cover/current.jpg; [ -f \"$f\" ] && echo \"$f\"",
+		"size": 18,
+		// refreshed by the signal; without an interval the module re-runs nonstop
+		// and blocks the whole bar
+		"interval": 3600,
+		"signal": 9,
+		"on-click": "playerctl -p spotify play-pause",
 		"tooltip": false
 	},
 

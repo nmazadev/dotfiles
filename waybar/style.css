@@ -121,13 +121,23 @@ tooltip label {
     opacity: 0.9;
 }
 
-#mpris {
-    border-radius: 10px 0 0 5px;
-    margin-left: 1px;
+/* the pill: rounded on the far left (cover) and on the far right (next button) */
+#image.cover {
+    background-color: @set;
+    padding: 3px 2px 3px 8px;
+    margin: 3px 0px 3px 1px;
+    border-radius: 10px 0 0 10px;
+    opacity: 0.9;
+}
+
+/* inner pieces square (the base style rounds everything), so only the ends are round */
+#mpris, #custom-media-prev, #custom-media-toggle {
+    border-radius: 0;
+    margin-left: 0;
 }
 
 #custom-media-next {
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 10px 10px 0;
     margin-right: 1px;
 }
 

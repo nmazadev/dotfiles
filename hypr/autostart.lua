@@ -12,6 +12,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
     -- keeps hypridle from dimming/locking while music, video or a call is playing
     hl.exec_cmd(home .. "/.config/hypr/scripts/media-inhibit.sh")
+    -- album art for the waybar music pill
+    hl.exec_cmd(home .. "/.config/hypr/scripts/media-cover.sh")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
 

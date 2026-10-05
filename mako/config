@@ -23,6 +23,11 @@ progress-color=over #f0aa6e
 # Pywal colors, override the fallbacks above
 include=~/.cache/wal/colors-mako
 
+# "now playing" (shown on each new song by media-cover.sh): a bigger cover
+[app-name=now-playing]
+max-icon-size=96
+width=360
+
 [urgency=high]
 border-color=#e66e6e
 default-timeout=0
