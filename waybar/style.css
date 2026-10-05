@@ -122,7 +122,15 @@ tooltip label {
 }
 
 /* the pill: rounded on the far left (cover) and on the far right (next button) */
+/* the styling sits on the image node, so with no cover (Spotify closed) nothing is
+   drawn at all instead of an empty sliver of pill */
 #image.cover {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+#image.cover image {
     background-color: @set;
     padding: 3px 2px 3px 8px;
     margin: 3px 0px 3px 1px;
