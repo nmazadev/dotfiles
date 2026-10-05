@@ -2,48 +2,51 @@ local vars = require("vars")
 local home = os.getenv("HOME")
 local mod = vars.mainMod
 
-hl.bind(mod .. " + RETURN", hl.dsp.exec_cmd(vars.terminal))
-hl.bind(mod .. " + Q", hl.dsp.window.close())
-hl.bind(mod .. " + F", hl.dsp.window.fullscreen())
-hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mod .. " + A", hl.dsp.exec_cmd(vars.menu))
-hl.bind(mod .. " + D", hl.dsp.window.pseudo())
-hl.bind(mod .. " + J", hl.dsp.layout("togglesplit"))
+hl.bind(mod .. " + RETURN", hl.dsp.exec_cmd(vars.terminal), { description = "Terminal" })
+hl.bind(mod .. " + Q", hl.dsp.window.close(), { description = "Close window" })
+hl.bind(mod .. " + F", hl.dsp.window.fullscreen(), { description = "Toggle fullscreen" })
+hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }), { description = "Toggle floating" })
+-- pin: keep a floating window on top and visible on every workspace
+hl.bind(mod .. " + SHIFT + V", hl.dsp.window.pin({ action = "toggle" }), { description = "Pin window (floating, all workspaces)" })
+hl.bind(mod .. " + A", hl.dsp.exec_cmd(vars.menu), { description = "App launcher" })
+hl.bind(mod .. " + D", hl.dsp.window.pseudo(), { description = "Pseudo-tile window" })
+hl.bind(mod .. " + J", hl.dsp.layout("togglesplit"), { description = "Toggle split direction" })
 
-hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd(home .. "/.config/waybar/launch.sh"))
-hl.bind(mod .. " + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
+hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd(home .. "/.config/waybar/launch.sh"), { description = "Restart waybar" })
+hl.bind(mod .. " + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"), { description = "Show / hide waybar" })
 
-hl.bind(mod .. " + W", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh"))
+hl.bind(mod .. " + W", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh"), { description = "New wallpaper" })
 
-hl.bind(mod .. " + M", hl.dsp.exec_cmd("wlogout -b 2"))
+hl.bind(mod .. " + M", hl.dsp.exec_cmd("wlogout -b 2"), { description = "Logout menu" })
+hl.bind(mod .. " + slash", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/keybinds.sh"), { description = "Hotkeys menu (this list)" })
 hl.bind(mod .. " + N", hl.dsp.exec_cmd("makoctl mode -t do-not-disturb >/dev/null; pkill -RTMIN+8 waybar"), { description = "Toggle do not disturb" })
-hl.bind(mod .. " + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh"))
-hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh next"))
+hl.bind(mod .. " + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh"), { description = "Theme menu" })
+hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh next"), { description = "Next theme" })
 
 for i = 1, 10 do
     local key = i % 10
-    hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }), { description = "Go to workspace " .. i })
+    hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }), { description = "Send window to workspace " .. i })
 end
 
-hl.bind(mod .. " + TAB", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mod .. " + TAB", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
 
-hl.bind(mod .. " + left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mod .. " + down", hl.dsp.focus({ direction = "down" }))
+hl.bind(mod .. " + left", hl.dsp.focus({ direction = "left" }), { description = "Focus left" })
+hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }), { description = "Focus right" })
+hl.bind(mod .. " + up", hl.dsp.focus({ direction = "up" }), { description = "Focus up" })
+hl.bind(mod .. " + down", hl.dsp.focus({ direction = "down" }), { description = "Focus down" })
 
-hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
+hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
 
-hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mod .. " + SHIFT + mouse:272", hl.dsp.window.resize(), { mouse = true })
-hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, description = "Move window (drag)" })
+hl.bind(mod .. " + SHIFT + mouse:272", hl.dsp.window.resize(), { mouse = true, description = "Resize window (drag)" })
+hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window (drag)" })
 
-hl.bind(mod .. " + SHIFT + right", hl.dsp.window.resize({ x = 30, y = 0, relative = true }))
-hl.bind(mod .. " + SHIFT + left", hl.dsp.window.resize({ x = -30, y = 0, relative = true }))
-hl.bind(mod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -30, relative = true }))
-hl.bind(mod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = true }))
+hl.bind(mod .. " + SHIFT + right", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { description = "Resize window wider" })
+hl.bind(mod .. " + SHIFT + left", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { description = "Resize window narrower" })
+hl.bind(mod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -30, relative = true }), { description = "Resize window shorter" })
+hl.bind(mod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = true }), { description = "Resize window taller" })
 
 -- Screenshots: the Print key (Fn+F12 on laptops), opened in satty
 hl.bind("Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot area"), { description = "Screenshot of an area" })

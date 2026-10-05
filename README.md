@@ -154,6 +154,7 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 | --- | --- |
 | `SUPER + Return` | terminal |
 | `SUPER + A` | app launcher |
+| `SUPER + /` | hotkeys menu: every shortcut with its description, searchable (built live from `hypr/binds.lua`) |
 | `SUPER + M` | logout menu |
 | `SUPER + N` | toggle do not disturb (notifications hidden, still kept) |
 | `SUPER + W` | new wallpaper (and new colors with the pywal theme) |
@@ -170,6 +171,7 @@ Clicks open TUIs in kitty: `btop` for the hardware modules, `wiremix` for audio,
 | `SUPER + Q` / `SUPER + K` | close / kill |
 | `SUPER + F` or `ALT + Return` | fullscreen |
 | `SUPER + V` | toggle floating |
+| `SUPER + SHIFT + V` | pin a floating window (on top, on every workspace) |
 | `SUPER + D` / `SUPER + J` | pseudo-tile / toggle split |
 | `SUPER + arrows` | move focus |
 | `SUPER + SHIFT + arrows` | resize |
