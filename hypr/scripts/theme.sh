@@ -44,6 +44,19 @@ else
 fi
 
 echo "$choice" > "$state"
+
+# tlock (2FA TUI) can't load custom themes: pick its closest built-in one. It keeps
+# the choice in a tiny binary file: the theme name prefixed by its length.
+case "$choice" in
+    rose-pine-moon) tlock_theme="Rose Pine" ;;
+    nord) tlock_theme="Nord" ;;
+    gruvbox|cocoa) tlock_theme="Gruvbox" ;;
+    *) tlock_theme="" ;;
+esac
+if [ -n "$tlock_theme" ]; then
+    mkdir -p "$HOME/.config/tlock"
+    printf "\\x$(printf %02x ${#tlock_theme})%s" "$tlock_theme" > "$HOME/.config/tlock/config_internal_ignore.bin"
+fi
 "$HOME/.config/hypr/scripts/gtk-theme.sh"
 
 # --no-reload is for callers that restart waybar and mako themselves

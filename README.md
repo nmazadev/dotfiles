@@ -209,6 +209,7 @@ waybar, wofi, wlogout, mako, hyprlock, kitty, cava, the focused-window outline a
 - `hypr/scripts/theme.sh [name|next]` applies one (no argument opens a wofi menu) and remembers it in `~/.cache/wal/theme`; `SUPER + W` keeps the chosen theme and only changes the wallpaper, unless it is `pywal`.
 - The wofi launcher is styled by `wofi/style.css`; `gtk-theme.sh` prepends the theme colors into `~/.cache/wal/wofi.css`, which `hypr/vars.lua` passes to wofi.
 - vim uses its own `cozy` colorscheme built from the terminal's 16 ANSI colors, so it follows the theme as soon as kitty does (new terminals pick the colors up through pywal's sequences).
+- tlock can't load custom themes, so `theme.sh` selects its closest built-in one (Rose Pine, Nord, Gruvbox; Gruvbox for cocoa).
 - Cursor (the editor) follows it too through the [Wal Theme](https://open-vsx.org/extension/dlasagno/wal-theme) extension, installed by `install-extras.sh`; select **Wal** once with `Ctrl+K Ctrl+T`.
 - GTK apps are themed by `gtk-3.0/` and `gtk-4.0/`: `hypr/scripts/gtk-theme.sh` writes `~/.config/gtk-*/gtk.css` from the theme colors plus each folder's `extra.css`, and `settings.ini` sets dark mode and the font. Reopen an app to see a theme change.
 - To add a palette, copy a file in `wal/colorschemes/`, change the colors and run `./install.sh`.
