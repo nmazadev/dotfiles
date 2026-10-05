@@ -14,7 +14,9 @@
 	"ext/workspaces": {
 		"format": "{name}",
 		"on-click": "activate",
-		"sort-by-id": true,
+		// by name (1, 2, 3...): the protocol's IDs are internal and a re-created
+		// workspace gets a new, higher one, which used to push 1 to the end
+		"sort-by-name": true,
 		"ignore-hidden": true
 	},
    	
