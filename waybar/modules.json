@@ -235,6 +235,16 @@
 		"tooltip-format": "Notifications: click to toggle do not disturb"
 	},
 
+	// OCR: click to select an area and copy its text, right-click to pick the language
+	"custom/ocr": {
+		"exec": "~/.config/hypr/scripts/ocr.sh status",
+		"return-type": "json",
+		"interval": "once",
+		"signal": 10,
+		"on-click": "~/.config/hypr/scripts/ocr.sh",
+		"on-click-right": "~/.config/hypr/scripts/ocr.sh lang"
+	},
+
 	// system tray, collapsed behind one button: click it to show the icons.
 	// Left-click an icon opens the app, right-click shows its menu (Quit, ...).
 	// named systray so its CSS id (#systray) does not clash with the tray module (#tray)

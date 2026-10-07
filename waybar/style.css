@@ -293,7 +293,7 @@ menuitem:hover {
 
 /* custom modules */
 /* icon buttons: one fixed size shared by the tray toggle, the bell and the power button */
-#custom-tray-toggle, #custom-notifications, #custom-exit {
+#custom-tray-toggle, #custom-ocr, #custom-notifications, #custom-exit {
     min-width: 26px;
     padding: 1px 0px 0px 0px;
     margin: 3px 1px;
@@ -308,6 +308,12 @@ menuitem:hover {
     /* the bell glyph leans right by about 1px: same 26px width, nudged left */
     min-width: 24px;
     padding-right: 2px;
+}
+
+#custom-ocr {
+    background-color: @set;
+    color: @text;
+    opacity: 0.9;
 }
 
 #custom-tray-toggle {

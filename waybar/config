@@ -41,6 +41,7 @@
            "bluetooth",
            "network",
            "battery",
+           "custom/ocr",
            "custom/notifications",
            "custom/exit"
         ]
