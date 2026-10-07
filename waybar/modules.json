@@ -23,8 +23,8 @@
 	// clock
 	"clock": {  
 		"interval": 60,
-		"format": "󰥔  {:%A, %B %d - %H:%M}",
-		"format-alt": "󰥔  {:%H:%M}", // click to toggle the short version
+		"format": "󰥔 {:%A, %B %d - %H:%M}",
+		"format-alt": "󰥔 {:%H:%M}", // click to toggle the short version
 		"tooltip-format": "<big>{calendar}</big>",
 		"calendar": {
 			"mode": "month",
@@ -159,7 +159,7 @@
 	// audio
 	"pulseaudio": {
 		"scroll-step": 1,
-		"format": "{icon}  {volume}%",
+		"format": "{icon} {volume}%",
 		"format-bluetooth": "{volume}% {icon} {format_source}",
 		"format-bluetooth-muted": "󰖁 {icon} {format_source}",
 		"format-muted": "󰖁 {format_source}",
@@ -197,11 +197,11 @@
 	// network
 	"network": {
 		"format": "{ifname}",
-		"format-wifi": "  {signalStrength}%",
+		"format-wifi": " {signalStrength}%",
 		"format-ethernet": "󰌘 {ifname}",
 		"format-disconnected": "disconnected",
 		"tooltip-format": "󰌘 {ifname} via {gwaddri}",
-		"tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\n {bandwidthUpBits}  {bandwidthDownBits}",
+		"tooltip-format-wifi": " {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\n {bandwidthUpBits}  {bandwidthDownBits}",
 		"tooltip-format-ethernet": "󰌘 {ifname}\nIP: {ipaddr}\n  {bandwidthUpBits}  {bandwidthDownBits}",
 		"tooltip-format-disconnected": "disconnected",
 		"max-length": 50,
