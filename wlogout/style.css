@@ -61,27 +61,28 @@ button {
     margin : 0px 550px 100px 0px;
 }
 
-/* options on hover */ 
-button:hover {
+/* the selected option (arrow keys, Enter picks it). Hover isn't styled: the mouse
+   doesn't move the selection, so styling both could light up two buttons */
+button:focus {
     background-size: 25%;
 }
 
-button:hover#lock {
+button:focus#lock {
     border-radius: 10px 10px 0px 10px;
     margin : 80px 0px 0px 530px;
 }
 
-button:hover#reboot {
+button:focus#reboot {
     border-radius: 10px 0px 10px 10px;
     margin : 0px 0px 80px 530px;
 }
 
-button:hover#logout {
+button:focus#logout {
     border-radius: 10px 10px 10px 0px;
     margin : 80px 530px 0px 0px;
 }
 
-button:hover#shutdown {
+button:focus#shutdown {
     border-radius: 0px 10px 10px 10px;
     margin: 0px 530px 80px 0px;
 }
