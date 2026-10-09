@@ -105,12 +105,18 @@ tooltip label {
     border: none;   
 }
 
-/* hardware group */
-#cpu,#temperature,#disk,#memory {
+/* hardware group: one indicator pill (below) holding the icon, and on hover the
+   stats sliding out of the drawer */
+#custom-system, #cpu, #temperature, #disk, #memory {
     margin: 0px;
     padding: 0px;
     font-size: 13px;
     color: @text;
+}
+
+/* the drawer opens to the left of the icon */
+#cpu, #temperature, #disk, #memory {
+    margin-right: 12px;
 }
 
 /* now playing: the four modules in group/media read as one pill */
@@ -161,7 +167,7 @@ tooltip label {
 
 /* indicator pills: every status module on the right shares this one style.
    A new indicator only needs its id added here. */
-#language, #pulseaudio, #backlight, #network, #bluetooth, #battery {
+#hardware, #language, #pulseaudio, #backlight, #network, #bluetooth, #battery {
     background-color: @set;
     font-size: 13px;
     color: @text;
@@ -268,15 +274,5 @@ menuitem:hover {
     background-color: @clock;
     color: @background;
     margin-right: 6px;
-    /* the power glyph sits 1.5px right of its box: same 26px width, nudged left */
-    min-width: 23px;
-    padding-right: 3px;
 }
 
-#custom-system {
-    margin-right: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    opacity: 0.8;
-    color: @text;
-}

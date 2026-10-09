@@ -54,33 +54,33 @@
 	
 	// system
 	"custom/system": {
-		"format": "<span size='small'> 󰄨 </span>",
+		"format": "󰊚",
 		"tooltip": false
 	},
 	
 	// CPU
 	"cpu": {
-		"format": " 󰍛 {usage}% ",
+		"format": " {usage}%",
 		"on-click": "kitty btop"
 	},
 	
 	// temperature
 	"temperature": {
-		"format": " 󰈸 {temperatureC}°C ",
+		"format": "󰈸 {temperatureC}°C",
 		"on-click": "kitty btop"
 	},
 	
 	// harddisc space
 	"disk": {
 		"interval": 30,
-		"format": " 󰋊 {percentage_used}% ",
+		"format": "󰋊 {percentage_used}%",
 		"path": "/",
 		"on-click": "kitty btop"
 	}, 
 	
 	// memory
 	"memory": {
-		"format": "  {}% ",
+		"format": " {}%",
 		"on-click": "kitty btop"
 	},
 	
