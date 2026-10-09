@@ -20,24 +20,18 @@
 		"ignore-hidden": true
 	},
    	
-	// clock
-	"clock": {  
+	// clock: the calendar's colours come from pywal (wal/templates/waybar-calendar.json,
+	// included by config); scroll over it to page through months
+	"clock": {
 		"interval": 60,
 		"format": "󰥔 {:%A, %B %d - %H:%M}",
-		"format-alt": "󰥔 {:%H:%M}", // click to toggle the short version
 		"tooltip-format": "<big>{calendar}</big>",
 		"calendar": {
 			"mode": "month",
-			"mode-mon-col": 3,
-			"weeks-pos": "right",
-			"on-scroll": 1,
-			"format": {
-				"months": "<span color='#ffffff'><b>{}</b></span>",
-				"days": "<span color='#ffffff'><b>{}</b></span>",
-				"weeks": "<span color='#ffffff'><b>W{}</b></span>",
-				"weekdays": "<span color='#ffffff'><b>{}</b></span>",
-				"today": "<span color='#ffffff'><b><u>{}</u></b></span>"
-			}
+			// left, not right: the rounded marker on today borrows the space before it,
+			// and only with the week numbers on the left does every row start with one
+			"weeks-pos": "left",
+			"on-scroll": 1
 		}
 	},
 	

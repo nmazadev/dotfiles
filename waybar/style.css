@@ -10,7 +10,7 @@
 /* pywal colors, see hypr/scripts/theme.sh. cursor is the theme's accent */
 @import '../../.cache/wal/colors-waybar.css';
 @define-color ws @cursor;
-@define-color tt alpha(mix(@background, @foreground, 0.15), 0.95);
+@define-color tt mix(@background, @foreground, 0.15);
 @define-color clock @cursor;
 @define-color set alpha(mix(@background, @foreground, 0.12), 0.88);
 @define-color text @foreground;
@@ -66,18 +66,19 @@ window#waybar {
 }
 
 /* tooltip */
+/* a solid card with a thin accent border (the calendar's colours: wal/templates/waybar-calendar.json) */
 tooltip {
     border-radius: 10px;
     background-color: @tt;
-    opacity: 0.8;
+    border: 1px solid alpha(@cursor, 0.5);
 }
 
 tooltip label {
-    border-radius: 10px;
-    background-color: @tt;
-    opacity: 0.8;
-    padding: 0px;
-    margin: -5px 0px;
+    background-color: transparent;
+    /* the GTK theme shadows tooltip text, which rims today's pill (made of glyphs) */
+    text-shadow: none;
+    padding: 4px 6px;
+    margin: 0px;
     font-size: 12px;
     color: @text;
 }

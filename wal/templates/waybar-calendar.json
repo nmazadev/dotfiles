@@ -1,0 +1,26 @@
+// pywal template: the clock calendar's colours, merged into the clock module
+// (waybar/config includes ~/.cache/wal/waybar-calendar.json). Doubled braces are waybar's own placeholders.
+//
+// today: a rounded pill, built from Nerd Font glyphs of one family so the parts
+// are the same height (a Pango background is taller than the caps and its square
+// corners showed). Half-circle caps (U+E0B6/E0B4) sit over the separator spaces on
+// each side, pulled 0.3 characters in so they don't touch the neighbouring days,
+// with full blocks (U+2588) between them under the day: two, plus a third over
+// their join (where two anti-aliased edges meet a thin seam shows). The
+// letter-spaced blank spaces only move the pen (a character is 9216): back 0.7,
+// left cap, back 0.3, two blocks, back 1.5, block, forward 0.2, right cap, back 2.7.
+// That ends where the day starts, so the columns stay aligned, and the day is drawn
+// last, on top. Tuned for the tooltip's 12px font inside <big>.
+{{
+	"clock": {{
+		"calendar": {{
+			"format": {{
+				"months": "<span color='{cursor}'><b>{{}}</b></span>",
+				"weekdays": "<span color='{color8}'>{{}}</span>",
+				"days": "<span color='{foreground}'>{{}}</span>",
+				"weeks": "<span color='{color8}' size='small'>{{}}</span>",
+				"today": "<span letter_spacing='-15668'> </span><span font_family='JetBrainsMono Nerd Font Propo' color='{cursor}'>\ue0b6</span><span letter_spacing='-11980'> </span><span font_family='JetBrainsMono Nerd Font Propo' color='{cursor}'>\u2588\u2588</span><span letter_spacing='-23040'> </span><span font_family='JetBrainsMono Nerd Font Propo' color='{cursor}'>\u2588</span><span letter_spacing='-7372'> </span><span font_family='JetBrainsMono Nerd Font Propo' color='{cursor}'>\ue0b4</span><span letter_spacing='-34100'> </span><span color='{background}'><b>{{}}</b></span>"
+			}}
+		}}
+	}}
+}}

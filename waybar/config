@@ -8,7 +8,7 @@
 
 {
 	// load modules
-	"include": "~/.config/waybar/modules.json",
+	"include": ["~/.config/waybar/modules.json", "~/.cache/wal/waybar-calendar.json"],
 	
 	// general settings
 	"position": "top",
