@@ -58,6 +58,7 @@ if [ -n "$tlock_theme" ]; then
     printf "\\x$(printf %02x ${#tlock_theme})%s" "$tlock_theme" > "$HOME/.config/tlock/config_internal_ignore.bin"
 fi
 "$HOME/.config/hypr/scripts/gtk-theme.sh"
+"$HOME/.config/hypr/scripts/vt-palette.sh"   # login screen colours, used at the next lidm start
 
 # --no-reload is for callers that restart waybar and mako themselves
 [[ " $* " == *" --no-reload "* ]] && exit 0
