@@ -41,7 +41,8 @@ run sudo mkdir -p /etc/systemd/system/lidm.service.d
 if ((dry)); then
     echo "+ install lidm/theme.conf -> /etc/systemd/system/lidm.service.d/theme.conf"
 else
-    sed "s|@HOME@|$HOME|" "$repo/lidm/theme.conf" | sudo tee /etc/systemd/system/lidm.service.d/theme.conf >/dev/null
+    dropin=$(sed "s|@HOME@|$HOME|" "$repo/lidm/theme.conf")
+    printf '%s\n' "$dropin" | sudo tee /etc/systemd/system/lidm.service.d/theme.conf >/dev/null
 fi
 run sudo systemctl daemon-reload
 
@@ -49,6 +50,7 @@ run sudo systemctl daemon-reload
 # of flashing on the console after login. lidm also reads /usr/local/share, which no
 # package owns, and remembers the last session picked.
 run sudo install -Dm755 "$repo/lidm/hyprland-quiet" /usr/local/bin/hyprland-quiet
+run sudo install -Dm755 "$repo/lidm/lidm-console-font" /usr/local/bin/lidm-console-font
 run sudo install -Dm644 "$repo/lidm/hyprland-quiet.desktop" /usr/local/share/wayland-sessions/hyprland-quiet.desktop
 
 # Unit name comes from the package; fall back to the usual one

@@ -1,0 +1,28 @@
+#!/bin/sh
+# Load the console font (FONT in /etc/vconsole.conf) on lidm's tty before lidm
+# draws. Run as root by the lidm.service drop-in (lidm/theme.conf).
+# Usage: lidm-console-font [tty number, default 7]
+#
+# With the splash boot option the framebuffer console (fbcon) only takes over on
+# the first text shown on the visible console, and systemd-vconsole-setup sets the
+# font after that, under lidm's finished screen. The console keeps glyph positions,
+# not characters, so the box lines turned to garbage. So: switch to the tty, write
+# to it to trigger the takeover, wait for fbcon to be bound (it's asynchronous),
+# and only then load the font.
+
+tty=${1:-7}
+. /etc/vconsole.conf 2>/dev/null
+[ -n "$FONT" ] || exit 0
+
+chvt "$tty"
+echo > "/dev/tty$tty"
+
+# fbcon is the vtconsole named "frame buffer device"; bind becomes 1 on takeover
+for _ in $(seq 50); do
+    for v in /sys/class/vtconsole/vtcon*; do
+        grep -q 'frame buffer' "$v/name" 2>/dev/null && [ "$(cat "$v/bind")" = 1 ] && break 2
+    done
+    sleep 0.1
+done
+
+setfont -C "/dev/tty$tty" "$FONT"

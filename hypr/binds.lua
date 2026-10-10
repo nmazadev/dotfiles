@@ -17,7 +17,8 @@ hl.bind(mod .. " + B", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"), { description
 
 hl.bind(mod .. " + W", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh"), { description = "New wallpaper" })
 
-hl.bind(mod .. " + M", hl.dsp.exec_cmd("wlogout -b 2"), { description = "Logout menu" })
+-- pressing it again closes the menu instead of stacking a second one
+hl.bind(mod .. " + M", hl.dsp.exec_cmd("pkill -x wlogout || wlogout -b 2"), { description = "Logout menu (toggle)" })
 hl.bind(mod .. " + slash", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/keybinds.sh"), { description = "Hotkeys menu (this list)" })
 hl.bind(mod .. " + N", hl.dsp.exec_cmd("makoctl mode -t do-not-disturb >/dev/null; pkill -RTMIN+8 waybar"), { description = "Toggle do not disturb" })
 hl.bind(mod .. " + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/theme.sh"), { description = "Theme menu" })
