@@ -3,16 +3,12 @@
 # logo with a small spinner, and a clean graphical disk-unlock prompt) minus the distro
 # logo that bgrt shows at the bottom.
 # Installs plymouth, builds and selects that theme, adds "quiet splash" to the kernel command line
-# (GRUB) and rebuilds the initramfs. Takes a snapshot first (snapshot.sh) when / is btrfs.
+# (GRUB) and rebuilds the initramfs.
 # Usage: ./boot-splash.sh [--dry-run]
 set -euo pipefail
 repo=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$repo/lib.sh"
 parse_args "$@"
-
-if [[ $(findmnt -no FSTYPE /) == btrfs ]]; then
-    "$repo/snapshot.sh" pre-splash "$@"
-fi
 
 run sudo pacman -S --needed --noconfirm plymouth
 

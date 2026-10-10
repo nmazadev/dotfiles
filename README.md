@@ -45,28 +45,14 @@ cd ~/dev/dotfiles
 
 Everything is safe to run again. When it finishes, log in to Hyprland: the repo's wallpaper is already in `~/wallpapers`, and you can drop more images there. At login `hypr/scripts/startup.sh` restores the wallpaper, generates the pywal colors for waybar and kitty and starts waybar (with an empty folder you get a notification instead, and waybar still starts). `SUPER + W` picks a new wallpaper any time.
 
-### Installing over an existing setup (e.g. meowrch)
-
-No wipe needed: `install-over.sh` installs on top of what is there, and `cleanup-meowrch.sh` removes the old desktop afterwards.
+### Uninstall
 
 ```sh
-./snapshot.sh before-dotfiles # optional: a snapshot of / and /home right now
-./install-over.sh --dry-run   # see what it will do
-./install-over.sh             # snapshot, install, snapshot
-# reboot, log into Hyprland, check everything works, then:
-./cleanup-meowrch.sh --dry-run
-./cleanup-meowrch.sh          # lists everything and asks before removing
+./uninstall.sh --dry-run   # see what it would undo
+./uninstall.sh             # lists everything and asks first
 ```
 
-`install-over.sh`:
-1. Takes a read-only btrfs snapshot of `/` and `/home` **before** anything changes (`pre-dotfiles-<date>`, your fallback). Snapshots are instant and take no space at first; skipped if `/` isn't btrfs.
-2. Sets aside (`*.bak`) what would override this setup: a `~/.zshenv` that redirects zsh to `~/.config/zsh` (meowrch's does, so `~/.zshrc` would be ignored), meowrch's `environment.d` file and its UWSM folder. The old display manager (SDDM) is disabled in favour of lidm, and zsh becomes the login shell (replacing fish).
-3. Runs `bootstrap.sh`. Replaced configs are kept as `*.bak`.
-4. Takes a second snapshot **after** (`post-dotfiles-<date>`), a milestone of the working setup before the cleanup.
-
-`cleanup-meowrch.sh` removes only meowrch's desktop pieces (bspwm, polybar, rofi, dunst/swaync, SDDM, fish, starship, its theming tools, ...), its helper scripts and user services, and the `*.bak` copies of replaced configs. It turns off meowrch's GRUB theme (backup in `/etc/default/grub.bak`) and deletes its GRUB, SDDM and Plymouth theme folders. It also switches the boot splash (Plymouth, which draws the disk-unlock prompt) from meowrch's theme to `bgrt-nologo` (the MSI/firmware logo with a spinner, see Boot splash below). Apps you may use for work (Firefox, VS Code, Discord, LibreOffice, databases, ...) and app data such as `~/.config/Cursor` and `~/.cursor` are never touched.
-
-`snapshot.sh [label]` works on its own any time (`./snapshot.sh --list` shows them). To get something back, copy it out of a snapshot (`cp -a /home/.snapshots/pre-dotfiles-<date>/$USER/.config/<dir> ~/.config/<dir>.old`). When you're happy, delete the snapshots with `sudo btrfs subvolume delete <path>`.
+It removes every link into this repo that `install.sh` made (putting back the `*.bak` it kept of the configs it replaced), and the login setup from `install-extras.sh`: the lidm theme (the original `/etc/lidm.ini` comes back), the console font and palette, the quiet session, and lidm itself, with the plain text login on tty1 from the next boot. Packages, services, zsh with oh-my-zsh, `~/wallpapers` and `~/.cache/wal` are kept. Log out or reboot right after, since the running session loses its configs.
 
 ## 🧺 What's in the basket
 
@@ -219,7 +205,7 @@ waybar, wofi, wlogout, mako, hyprlock, kitty, cava, the focused-window outline a
 
 ## 🚀 Boot splash (optional)
 
-`./boot-splash.sh` (supports `--dry-run`) adds a Plymouth splash with `bgrt-nologo`: the built-in `bgrt` theme (the MSI/firmware logo with a small spinner, and a clean graphical disk-unlock prompt) without the Arch logo it shows at the bottom. It takes a `pre-splash` snapshot, installs `plymouth`, adds `quiet splash` to GRUB's kernel options (backup in `/etc/default/grub.bak`) and rebuilds the initramfs (dracut or mkinitcpio, whichever the machine uses).
+`./boot-splash.sh` (supports `--dry-run`) adds a Plymouth splash with `bgrt-nologo`: the built-in `bgrt` theme (the MSI/firmware logo with a small spinner, and a clean graphical disk-unlock prompt) without the Arch logo it shows at the bottom. It installs `plymouth`, adds `quiet splash` to GRUB's kernel options (backup in `/etc/default/grub.bak`) and rebuilds the initramfs (dracut or mkinitcpio, whichever the machine uses).
 
 ## 🖥️ Screen sharing
 
@@ -246,7 +232,7 @@ It also adds a **Hyprland (quiet)** session (`lidm/hyprland-quiet*`): the same H
 <details>
 <summary>Roll back</summary>
 
-Switch to another tty (`Ctrl+Alt+F3`), log in and run:
+`./uninstall.sh` undoes all of it (along with the config links). To only switch back to the text login, from another tty (`Ctrl+Alt+F3`):
 
 ```sh
 sudo systemctl disable lidm && sudo systemctl enable getty@tty1
