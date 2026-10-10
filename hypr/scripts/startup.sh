@@ -19,3 +19,7 @@ else
     "$HOME/.config/hypr/scripts/theme.sh" "$theme" --no-reload
     "$HOME/.config/waybar/launch.sh"
 fi
+
+# From now on monitor.added is a real hotplug: the event Hyprland sends for the
+# screens it starts with is ignored by monitor-hotplug.sh until this marker exists
+touch "$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/startup-done"

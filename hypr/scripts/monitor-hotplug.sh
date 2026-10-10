@@ -5,6 +5,10 @@
 event="$1"
 name="$2"
 
+# Hyprland also sends monitor.added for the screens it starts with; startup.sh
+# already sets their wallpaper and launches waybar, so wait for its marker
+[ -f "$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/startup-done" ] || exit 0
+
 # Waybar follows the monitor layout, so relaunch it on any change
 relaunch_waybar() {
     "$HOME/.config/waybar/launch.sh" >/dev/null 2>&1 &

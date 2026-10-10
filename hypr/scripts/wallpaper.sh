@@ -65,10 +65,13 @@ awww img "$wallpaper" \
 
 # create blurred wallpaper (for wlogout), cropped to fill the screen.
 # The original image is never modified.
-# Runs in the background so SUPER+W returns right away.
-if [ ! "$blur" == "0x0" ] ; then
-    magick "$wallpaper" -resize '1920x1080^' -gravity center -extent 1920x1080 \
-        -blur "$blur" "$blurred_wp" &
+# Runs in the background so SUPER+W returns right away. Written to a temp file and
+# moved into place: wlogout opened mid-write got a half PNG, which GTK paints red.
+# At login it's skipped when the blurred file is already newer than the wallpaper.
+if [ ! "$blur" == "0x0" ] && ! { [ "$1" = "init" ] && [ "$blurred_wp" -nt "$wallpaper" ]; }; then
+    tmp="${blurred_wp%.png}.tmp.png"
+    { magick "$wallpaper" -resize '1920x1080^' -gravity center -extent 1920x1080 \
+        -blur "$blur" "$tmp" && mv -f "$tmp" "$blurred_wp"; } &
 fi
 
 # update current wallpaper file
