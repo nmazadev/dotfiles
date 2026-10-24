@@ -74,6 +74,16 @@ hl.window_rule({
     center = true,
 })
 
+-- terminal apps opened from waybar (tlock, bluetui, nmtui): kitty with this class,
+-- a centred floating window instead of a tile
+hl.window_rule({
+    name = "tui-float",
+    match = { class = "tui-float" },
+    float = true,
+    size = "900 600",
+    center = true,
+})
+
 -- screen share picker (xdg-desktop-portal-hyprland): a centered, solid dialog
 hl.window_rule({
     name = "share-picker",

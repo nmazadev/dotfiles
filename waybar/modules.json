@@ -184,7 +184,15 @@
 		"format-disabled": " {status}",
 		"format-off": " {status}",
 		"interval": 30,
-		"on-click": "kitty sh -c 'bluetui'",
+		// tooltip: the adapter, then one line per connected device (with its battery
+		// when the device reports one)
+		"tooltip-format": " {controller_alias}\nNo devices connected\nClick: open bluetui",
+		"tooltip-format-connected": " {controller_alias}\n{device_enumerate}\nClick: open bluetui",
+		"tooltip-format-enumerate-connected": "󰂯 {device_alias}",
+		"tooltip-format-enumerate-connected-battery": "󰂯 {device_alias}  󰁹 {device_battery_percentage}%",
+		"tooltip-format-off": "Bluetooth off\nClick: open bluetui",
+		"tooltip-format-disabled": "Bluetooth disabled\nClick: open bluetui",
+		"on-click": "kitty --class tui-float bluetui",
 		"format-no-controller": ""
 	},
 	
@@ -199,7 +207,7 @@
 		"tooltip-format-ethernet": "󰌘 {ifname}\nIP: {ipaddr}\n  {bandwidthUpBits}  {bandwidthDownBits}",
 		"tooltip-format-disconnected": "disconnected",
 		"max-length": 50,
-		"on-click": "kitty nmtui"
+		"on-click": "kitty --class tui-float nmtui"
 		//"on-click": "~/dotfiles/.settings/networkmanager.sh"
 	},
 	
@@ -227,6 +235,13 @@
 		"signal": 8,
 		"on-click": "makoctl mode -t do-not-disturb >/dev/null; pkill -RTMIN+8 waybar",
 		"tooltip-format": "Notifications: click to toggle do not disturb"
+	},
+
+	// 2FA codes: tlock in a floating window (the tui-float rule in hypr/looks.lua)
+	"custom/tlock": {
+		"format": "󰯄",
+		"on-click": "kitty --class tui-float tlock",
+		"tooltip-format": "2FA codes (tlock)"
 	},
 
 	// OCR: click to select an area and copy its text, right-click to pick the language

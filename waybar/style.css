@@ -242,8 +242,8 @@ menuitem:hover {
 }
 
 /* custom modules */
-/* icon buttons: one fixed size shared by the tray toggle, OCR, the bell and the power button */
-#custom-tray-toggle, #custom-ocr, #custom-notifications, #custom-exit {
+/* icon buttons: one fixed size shared by the tray toggle, tlock, OCR, the bell and the power button */
+#custom-tray-toggle, #custom-tlock, #custom-ocr, #custom-notifications, #custom-exit {
     min-width: 26px;
     padding: 1px 0px 0px 0px;
     margin: 3px 1px;
@@ -252,7 +252,7 @@ menuitem:hover {
 }
 
 /* the plain (pill-coloured) icon buttons */
-#custom-ocr, #custom-notifications {
+#custom-tlock, #custom-ocr, #custom-notifications {
     background-color: @set;
     color: @text;
     opacity: 0.9;
