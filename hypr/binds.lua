@@ -44,10 +44,10 @@ hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, description
 hl.bind(mod .. " + SHIFT + mouse:272", hl.dsp.window.resize(), { mouse = true, description = "Resize window (drag)" })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window (drag)" })
 
-hl.bind(mod .. " + SHIFT + right", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { description = "Resize window wider" })
-hl.bind(mod .. " + SHIFT + left", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { description = "Resize window narrower" })
-hl.bind(mod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -30, relative = true }), { description = "Resize window shorter" })
-hl.bind(mod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = true }), { description = "Resize window taller" })
+hl.bind(mod .. " + SHIFT + right", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { description = "Resize window wider", repeating = true })
+hl.bind(mod .. " + SHIFT + left", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { description = "Resize window narrower", repeating = true })
+hl.bind(mod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -30, relative = true }), { description = "Resize window shorter", repeating = true })
+hl.bind(mod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = true }), { description = "Resize window taller", repeating = true })
 
 -- Screenshots: the Print key (Fn+F12 on laptops), opened in satty
 hl.bind("Print", hl.dsp.exec_cmd(home .. "/.local/bin/screenshot area"), { description = "Screenshot of an area" })
