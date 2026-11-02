@@ -152,6 +152,12 @@ tooltip label {
     margin-left: 0;
 }
 
+/* play and pause glyphs differ by a pixel: one width for every button, so next
+   doesn't shift when the toggle flips */
+#custom-media-prev, #custom-media-toggle, #custom-media-next {
+    min-width: 10px;
+}
+
 #custom-media-next {
     border-radius: 0 10px 10px 0;
     margin-right: 1px;
