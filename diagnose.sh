@@ -86,12 +86,12 @@ else
 fi
 
 section "lock / idle state"
-run pgrep -a 'hyprlock|hypridle|media-inhibit|mako|waybar'
+run pgrep -a 'hyprlock|hypridle|power-watch|media-inhibit|mako|waybar'
 run loginctl list-sessions
 sid=$(loginctl list-sessions --no-legend 2>/dev/null | awk -v u="$USER" '$3 == u && $0 !~ /tty[0-9]/ {print $1; exit}')
 [[ -n $sid ]] && run loginctl show-session "$sid" -p Type -p State -p Active -p LockedHint -p IdleHint
 run systemd-inhibit --list --no-pager
-run cat "$HOME/.config/hypr/hypridle.conf"
+run cat "$HOME/.cache/hypridle.conf"   # built from hypr/power.conf by power-watch.sh
 [[ -f $HOME/.cache/screens-on.log ]] && run tail -30 "$HOME/.cache/screens-on.log"
 
 section "screenshot path (Print -> satty)"

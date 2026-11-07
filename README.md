@@ -84,11 +84,11 @@ It removes every link into this repo that `install.sh` made (putting back the `*
 - `monitors.lua` laptop panel (eDP-1, native resolution at its highest refresh rate), plus a catch-all rule: any other monitor gets its best resolution at the highest refresh rate, placed to the right
 - `env.lua` cursor theme (`rose-pine-hyprcursor`, size 24) and `vim` as the default `EDITOR`/`VISUAL`, Wayland-first hints for Electron (`ELECTRON_OZONE_PLATFORM_HINT=auto`) and Qt (`QT_QPA_PLATFORM=wayland;xcb`)
 - `gpu.lua` automatic GPU setup, see [GPU notes](#-gpu-notes)
-- `autostart.lua` starts `awww-daemon`, `mako`, `hypridle`, `media-inhibit.sh` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
+- `autostart.lua` starts `awww-daemon`, `mako`, `power-watch.sh` (which runs `hypridle`), `media-inhibit.sh` and the polkit agent, and runs `startup.sh` (wallpaper, pywal colors, waybar), and handles monitor hotplug
 - `looks.lua` dwindle layout, 3/6 px gaps, 12 px rounded corners, 0.95 opacity (Firefox stays fully opaque for videos), a 2 px accent outline on the focused window (faint on the rest), blur off, animations
 - `input.lua` `us` + `latam` layouts, 3-finger swipe to change workspace
 - `binds.lua` keybindings, see [Keybindings](#-keybindings)
-- `hypridle.conf` / `hyprlock.conf` dim at 4.5 min, lock at 5 min, screens off at 6 min, and lock before suspend. Nothing happens while media plays: `scripts/media-inhibit.sh` holds an idle inhibitor whenever an app plays audio (music, video) or records the mic (Discord, meetings)
+- `power.conf` holds two power profiles, plugged in and on battery: when the screen dims, locks and sleeps, the brightness to switch to, and the power profile (performance on the charger, power-saver on battery). `scripts/power-watch.sh` applies the right one at login and whenever the charger is plugged in or out, building hypridle's config from `hypridle.template.conf`. Edit `power.conf` and run `power-watch.sh apply` to use it right away; no sudo needed. Out of the box: plugged in dims at 4.5 min, locks at 5 and never sleeps; on battery dims at 2, locks at 3 and sleeps at 10. `hyprlock.conf` is the lock screen, and the screen is locked before any suspend. Nothing happens while media plays: `scripts/media-inhibit.sh` holds an idle inhibitor whenever an app plays audio (music, video) or records the mic (Discord, meetings)
 - `scripts/theme.sh` switches the color theme (see Themes below)
 - `scripts/wallpaper.sh` picks a wallpaper, recolors with pywal, restarts waybar and reloads mako. It only reads your images and writes a blurred copy for wlogout
 - `scripts/startup.sh` runs at login: restores the wallpaper and theme colors, then starts waybar

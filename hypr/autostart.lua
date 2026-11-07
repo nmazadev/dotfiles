@@ -9,7 +9,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd(home .. "/.config/hypr/scripts/startup.sh")
     hl.exec_cmd("mako")
-    hl.exec_cmd("hypridle")
+    -- starts hypridle with the plugged-in or on-battery times (power.conf), and
+    -- switches profile when the charger is plugged in or out
+    hl.exec_cmd(home .. "/.config/hypr/scripts/power-watch.sh")
     -- keeps hypridle from dimming/locking while music, video or a call is playing
     hl.exec_cmd(home .. "/.config/hypr/scripts/media-inhibit.sh")
     -- album art for the waybar music pill
