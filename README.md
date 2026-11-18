@@ -22,6 +22,20 @@ Made for Intel-only and hybrid Intel + NVIDIA laptops.
 Compact and cozy: a slim 26 px bar, soft rounded corners, slightly see-through windows (0.95), tight 6 px gaps, a slim accent outline on the focused window, no blur, gentle animations.
 The default palette is **cocoa** (cream on warm brown, terracotta and amber accents). `SUPER + T` opens a theme menu and `SUPER + SHIFT + T` cycles: `cocoa`, `rose-pine-moon`, `gruvbox`, `nord`, or `pywal`, where the colors follow the wallpaper. Rose Pine cursor, JetBrains Mono everywhere.
 
+## 👀 Preview
+
+![Desktop with tiled apps](screenshots/apps.jpg)
+
+| Themes (`SUPER + T`) | Power menu (`SUPER + M`) |
+| --- | --- |
+| ![The four themes](screenshots/themes.jpg) | ![Power menu](screenshots/power-menu.jpg) |
+| **Launcher (`SUPER + A`)** | **Lock screen** |
+| ![Launcher](screenshots/launcher.jpg) | ![Lock screen](screenshots/lock.jpg) |
+
+![Calendar](screenshots/calendar.png) ![Notifications](screenshots/notifications.png)
+
+More in [SCREENSHOTS.md](SCREENSHOTS.md): the bar up close, every menu, and each theme full size.
+
 ## 🚀 Quick start
 
 On a fresh EndeavourOS with no desktop (only `git` is needed; `paru` is installed automatically if missing):
